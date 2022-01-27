@@ -1,40 +1,38 @@
 import React, {useEffect, useState} from 'react';
-import { cav } from '../util/caver';
 
-declare global {
-    interface Window {
-        klaytn:any;
-    }
-}
 
 const Home = () => {
-	const [account, setAccount] = useState('');
+	const [account, setAccount] = useState('init');
 
 	useEffect( () => {
-		if(typeof window.klaytn !== undefined) {
-			const klaytn = window['klaytn']
+            window.caver.klay.getAccounts().then((accounts:any) => {
+		setAccount(accounts[0]);
+            });
 
-			klaytn.on('accountsChanged', (accounts:any) => {
-				setAccount(accounts[0]);
-			  });
+	// 	if(typeof window.klaytn !== undefined) {
+	// 		const klaytn = window['klaytn']
 
-			if(klaytn._kaikas.isEnabled() === false) {
-				try {
-					klaytn.enable().then((accounts:any) => {
-						setAccount(accounts[0]);
+	// 		klaytn.on('accountsChanged', (accounts:any) => {
+	// 			setAccount(accounts[0]);
+	// 		  });
 
-						console.log(cav.account);
+	// 		if(klaytn._kaikas.isEnabled() === false) {
+	// 			try {
+	// 				klaytn.enable().then((accounts:any) => {
+	// 					setAccount(accounts[0]);
 
-						// caver.wallet.signMessage(accounts[0], 'test', caver.wallet.keyring.role.roleTransactionKey).then((signature:any) => {
-						// 	console.log(signature);
-						// });
-					})
-				  } catch (error) {
-					console.error(error)
-				  }
-			}
-		}
-	  }, [account]);
+	// 					console.log(cav.account);
+
+	// 					// caver.wallet.signMessage(accounts[0], 'test', caver.wallet.keyring.role.roleTransactionKey).then((signature:any) => {
+	// 					// 	console.log(signature);
+	// 					// });
+	// 				})
+	// 			  } catch (error) {
+	// 				console.error(error)
+	// 			  }
+	// 		}
+	// 	}
+	}, [account]);
     return (
         <div>
             <h2>
