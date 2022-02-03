@@ -5,9 +5,10 @@ const Home = () => {
 	const [account, setAccount] = useState('init');
 
 	useEffect( () => {
-            window.caver.klay.getAccounts().then((accounts:any) => {
-		setAccount(accounts[0]);
-            });
+		window.caver.klay.getAccounts().then((accounts:any) => {
+			console.log(accounts);
+			setAccount(accounts[0]);
+		});
 
 	// 	if(typeof window.klaytn !== undefined) {
 	// 		const klaytn = window['klaytn']
