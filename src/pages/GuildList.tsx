@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import Guild from './Guild';
+import Box from "@mui/material/Box";
+
+import guild from '../util/guild';
+
+import GuildCard from './GuildCard';
 
 const GuildList = () => {
+	const [guilds, setGuilds] = useState([]);
+
+	useEffect( () => {
+		guild.getGuilds().then((guilds:any) => {
+				setGuilds(guilds);
+		});
+	});
 
     return (
 		<div>
-			<h2>Guild List</h2>
-			<ul>
-				<li><Guild name="1" /></li>
-				<li><Guild name="2" /></li>
-			</ul>
+			<Box m={2}>
+				<Box sx={{left:0}}>
+					My Guilds
+				</Box>
+				<Box sx={{right:0}}>
+					<button>Create Guild</button>
+				</Box>
+			</Box>
+			<Box m={2}>
+				{guilds.map((guild:any) => (
+					<Box m={2}><GuildCard name={guild} key={guild} /></Box>
+				))}
+			</Box>
 		</div>
     );
 };

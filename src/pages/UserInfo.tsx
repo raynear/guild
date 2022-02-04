@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+// import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+
 const UserInfo = () => {
 	const [account, setAccount] = useState('');
 
@@ -10,16 +17,12 @@ const UserInfo = () => {
 	})
 
     return (
-		<div>
-			<div>
-				<h2>
-					{account}
-				</h2>
-				<h4>
-					user balance
-				</h4>
-			</div>
-		</div>
+		<Card>
+			<CardContent>
+				<Typography>{account}</Typography>
+				<Typography>user balance</Typography>
+			</CardContent>
+		</Card>
     );
 };
 

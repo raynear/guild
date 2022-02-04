@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Home from './pages/unuse/Home';
-import About from './pages/unuse/About';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+
 import MyAccount from './pages/MyAccount';
 import Discover from './pages/Discover';
 import RentNFT from './pages/RentNFT';
-import { Routes, Route, Link } from 'react-router-dom';
-
 
 function App() {
   const [isEnabled, setIsEnabled] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [value, setValue] = useState(0);
+
+  const navigate = useNavigate();
   useEffect(() => {
     // setTimeout(function() { //Start the timer
     const enable = window.klaytn._kaikas.isEnabled();
@@ -36,6 +40,25 @@ function App() {
     // window.location.reload();
   }
 
+  function tabPush(e:any, value:any) {
+    console.log("tabPush");
+    setValue(value);
+    switch(value) {
+      case 0:
+        navigate('/myAccount');
+        break;
+      case 1:
+        navigate('/discover');
+        break;
+      case 2:
+        navigate('/rentNFT');
+        break;
+      default:
+        navigate('/myAccount');
+        break;
+    }
+  }
+
   if(isEnabled === false) {
     return (
       <div>
@@ -45,17 +68,17 @@ function App() {
   } else {
     return (
       <div>
-      <ul>
-        <li><Link to="/myAccount"><h3>myAccount</h3></Link></li>
-        <li><Link to="/discover"><h3>discover</h3></Link></li>
-        <li><Link to="/rentNFT"><h3>rentNFT</h3></Link></li>
-      </ul>
-      <Routes>
-        <Route path="/myAccount" element={<MyAccount/>} />
-        <Route path="/discover" element={<Discover/>} />
-        <Route path="/rentNFT" element={<RentNFT/>} />
-      </Routes>
-</div>
+        <Tabs value={value} onChange={tabPush} aria-label="basic tabs example">
+          <Tab label="myAccount"/>
+          <Tab label="discover"/>
+          <Tab label="rentNFT"/>
+        </Tabs>
+        <Routes>
+          <Route path="/myAccount" element={<MyAccount/>} />
+          <Route path="/discover" element={<Discover/>} />
+          <Route path="/rentNFT" element={<RentNFT/>} />
+        </Routes>
+      </div>
     );
   }
 }

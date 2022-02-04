@@ -10,13 +10,6 @@
    rpcURL: 'https://api.baobab.klaytn.net:8651'
  }
 
-declare global {
-    interface Window {
-        klaytn:any;
-        caver:any;
-    }
-}
-
 
 export var cav:any;
 
