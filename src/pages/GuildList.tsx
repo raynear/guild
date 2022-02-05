@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Box from "@mui/material/Box";
+import {Box, Grid, Button, Typography} from "@mui/material";
 
 import guild from '../util/guild';
 
@@ -17,13 +17,16 @@ const GuildList = () => {
 
     return (
 		<div>
-			<Box m={2}>
-				<Box sx={{left:0}}>
-					My Guilds
-				</Box>
-				<Box sx={{right:0}}>
-					<button>Create Guild</button>
-				</Box>
+			<Box sx={{m:2, p:1}}>
+				<Grid container alignItems="center">
+					<Grid item xs={3}>
+						<Typography variant="h4">My Guilds</Typography>
+					</Grid>
+					<Grid item xs={6}></Grid>
+					<Grid container item justifyContent="flex-end" xs={3}>
+						<Button variant="contained">Create Guild</Button>
+					</Grid>
+				</Grid>
 			</Box>
 			<Box m={2}>
 				{guilds.map((guild:any) => (

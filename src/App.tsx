@@ -67,17 +67,20 @@ function App() {
     );
   } else {
     return (
-      <div>
+      <div style={{height:"100%", display:"flex", alignItems:"center", backgroundColor:"#88aa88", justifyContent:"center"}}>
+        <div style={{width:"60%", height:"60%", backgroundColor:"#88cc88", borderRadius:"25px"}}>
         <Tabs value={value} onChange={tabPush} aria-label="basic tabs example">
           <Tab label="myAccount"/>
           <Tab label="discover"/>
           <Tab label="rentNFT"/>
         </Tabs>
         <Routes>
+          <Route path="/" element={<MyAccount/>} />
           <Route path="/myAccount" element={<MyAccount/>} />
           <Route path="/discover" element={<Discover/>} />
           <Route path="/rentNFT" element={<RentNFT/>} />
         </Routes>
+        </div>
       </div>
     );
   }
