@@ -19,11 +19,10 @@ const GuildList = () => {
 		<div>
 			<Box sx={{m:2, p:1}}>
 				<Grid container alignItems="center">
-					<Grid item xs={3}>
+					<Grid container item justifyContent="flex-start" xs={6}>
 						<Typography variant="h4">My Guilds</Typography>
 					</Grid>
-					<Grid item xs={6}></Grid>
-					<Grid container item justifyContent="flex-end" xs={3}>
+					<Grid container item justifyContent="flex-end" xs={6}>
 						<Button variant="contained">Create Guild</Button>
 					</Grid>
 				</Grid>

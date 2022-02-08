@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Tabs from './Tabs';
 import GuildPresentation from './GuildPresentation';
 
 const Discover = () => {
@@ -11,6 +12,9 @@ const Discover = () => {
 
     return (
 		<div>
+			<div>
+				<Tabs selected={2}/>
+			</div>
 			<h2>Discover</h2>
 			<ul>
 				<li><GuildPresentation name="1" /></li>

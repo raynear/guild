@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-
 import MyAccount from './pages/MyAccount';
 import Discover from './pages/Discover';
 import RentNFT from './pages/RentNFT';
 
+import Image from './image/sky.jpeg';
+import Cloud from './image/cloud.png';
+
 function App() {
   const [isEnabled, setIsEnabled] = useState(false);
-  const [value, setValue] = useState(0);
 
-  const navigate = useNavigate();
   useEffect(() => {
     // setTimeout(function() { //Start the timer
     const enable = window.klaytn._kaikas.isEnabled();
@@ -40,25 +37,6 @@ function App() {
     // window.location.reload();
   }
 
-  function tabPush(e:any, value:any) {
-    console.log("tabPush");
-    setValue(value);
-    switch(value) {
-      case 0:
-        navigate('/myAccount');
-        break;
-      case 1:
-        navigate('/discover');
-        break;
-      case 2:
-        navigate('/rentNFT');
-        break;
-      default:
-        navigate('/myAccount');
-        break;
-    }
-  }
-
   if(isEnabled === false) {
     return (
       <div>
@@ -67,13 +45,19 @@ function App() {
     );
   } else {
     return (
-      <div style={{height:"100%", display:"flex", alignItems:"center", backgroundColor:"#88aa88", justifyContent:"center"}}>
-        <div style={{width:"60%", height:"60%", backgroundColor:"#88cc88", borderRadius:"25px"}}>
-        <Tabs value={value} onChange={tabPush} aria-label="basic tabs example">
-          <Tab label="myAccount"/>
-          <Tab label="discover"/>
-          <Tab label="rentNFT"/>
-        </Tabs>
+      <div style={{
+        height:"100%",
+        display:"flex",
+        alignItems:"center",
+        backgroundColor:"#88aa88",
+        justifyContent:"center",
+        backgroundImage: `url(${Image})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }}>
+        <img alt="cloud" src={require('./image/cloud.png')} style={{width:"300px", height:"300px", position:"absolute", top:"70%", left:"16%", zIndex:5}}/>
+        <div style={{width:"900px", height:"900px", backgroundColor:"#469BAC", borderRadius:"25px", opacity:0.9}}>
         <Routes>
           <Route path="/" element={<MyAccount/>} />
           <Route path="/myAccount" element={<MyAccount/>} />

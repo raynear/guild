@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import Tabs from './Tabs';
+
 const RentNFT = () => {
 	const [name, setName] = useState('');
 
@@ -9,6 +11,9 @@ const RentNFT = () => {
 
     return (
 		<div>
+			<div>
+				<Tabs selected={3}/>
+			</div>
 			<h2>RentNFT</h2>
 			<div>
         		<input value={name} onChange={onChangeName} />
