@@ -5,7 +5,7 @@ import MyAccount from './pages/MyAccount';
 import Discover from './pages/Discover';
 import RentNFT from './pages/RentNFT';
 
-import Image from './image/sky.jpeg';
+import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
       }}>
-        <img alt="cloud" src={require('./image/cloud.png')} style={{width:"600px", height:"300px", position:"absolute", top:`calc(100% - 300px)`, left:"0%", zIndex:5}}/>
+        <img alt="cloud" src={Cloud} style={{width:"600px", height:"300px", position:"absolute", top:`calc(100% - 300px)`, left:"0%", zIndex:5}}/>
         <div style={{width:"978px", height:"690px"}}>
         <Routes>
           <Route path="/" element={<MyAccount/>} />

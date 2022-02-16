@@ -19,11 +19,10 @@ const UserInfo = () => {
 
     return (
 		<div style={{position:"absolute", zIndex:"4"}}>
-			<Avatar style={{position:"absolute", left:"25px", top:"120px"}} src="/asssets/avatar.jpeg" variant="circular" />
-			<Typography variant="h6" style={{position:"absolute", left:"90px", top:"130px"}}>{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
-			<Typography variant="h6" style={{position:"absolute", left:"90px", top:"250px"}}>{"100,000,000"}</Typography>
+			<Typography variant="h5" style={{position:"absolute", left:"90px", top:"135px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
+			<Typography variant="h5" style={{position:"absolute", left:"90px", top:"260px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"100,000,000"}</Typography>
 			<Typography style={{position:"absolute", left:"90px", top:"350px"}}>user balance</Typography>
-			<Button style={{position:"absolute", left:"0px", top:"430px"}}><img alt="logout" style={{width:"306px", height:"44px"}} src={require('../image/red-button-on.png')}/></Button>
+			<Button style={{position:"absolute", left:"6px", top:"440px"}}><img alt="logout" style={{width:"306px", height:"44px"}} src={require('../image/red-button-on.png')}/></Button>
 		</div>
     );
 };
