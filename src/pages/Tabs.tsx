@@ -22,25 +22,21 @@ const Tabs = (props:any) => {
 
     return (
 		<div>
-			<Button onClick={click1}>
+			<img alt="myAccount" src={require('../image/tab-1-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
+			<img alt="discover" src={require('../image/tab-2-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
+			<img alt="rent" src={require('../image/tab-3-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
 				{props.selected===1?
-					<img alt="myaccount" src={require('../image/myaccount.jpeg')} style={{width:"200px", height:"140px"}}/>:
-					<img alt="myaccount" src={require('../image/myaccount.jpeg')} style={{width:"200px", height:"140px", opacity:0.4}}/>
+					<img alt="myAccount" src={require('../image/tab-1-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>:
+				props.selected===2?
+					<img alt="discover" src={require('../image/tab-2-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>:
+					<img alt="rent" src={require('../image/tab-3-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>
 				}
-			</Button>
-			<Button onClick={click2}>
-				{props.selected===2?
-					<img alt="myaccount" src={require('../image/discovery.png')} style={{width:"200px", height:"140px"}}/>:
-					<img alt="myaccount" src={require('../image/discovery.png')} style={{width:"200px", height:"140px", opacity:0.4}}/>
-				}
-			</Button>
-			<Button onClick={click3}>
-				{
-					props.selected===3?
-					<img alt="myaccount" src={require('../image/rent.jpeg')} style={{width:"200px", height:"140px"}}/>:
-					<img alt="myaccount" src={require('../image/rent.jpeg')} style={{width:"200px", height:"140px", opacity:0.4}}/>
-				}
-			</Button>
+				<div style={{position:"absolute", left:"0px", top:"0px", width:"326px", height:"100px", zIndex:"3"}} onClick={click1}>
+				</div>
+				<div style={{position:"absolute", left:"326px", top:"0px", width:"326px", height:"100px", zIndex:"3"}} onClick={click2}>
+				</div>
+				<div style={{position:"absolute", left:"652px", top:"0px", width:"326px", height:"100px", zIndex:"3"}} onClick={click3}>
+				</div>
 		</div>
     );
 };

@@ -56,8 +56,8 @@ function App() {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
       }}>
-        <img alt="cloud" src={require('./image/cloud.png')} style={{width:"300px", height:"300px", position:"absolute", top:"70%", left:"16%", zIndex:5}}/>
-        <div style={{width:"900px", height:"900px", backgroundColor:"#469BAC", borderRadius:"25px", opacity:0.9}}>
+        <img alt="cloud" src={require('./image/cloud.png')} style={{width:"600px", height:"300px", position:"absolute", top:`calc(100% - 300px)`, left:"0%", zIndex:5}}/>
+        <div style={{width:"978px", height:"690px"}}>
         <Routes>
           <Route path="/" element={<MyAccount/>} />
           <Route path="/myAccount" element={<MyAccount/>} />

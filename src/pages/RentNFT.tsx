@@ -11,7 +11,7 @@ const RentNFT = () => {
 
     return (
 		<div>
-			<div>
+			<div style={{position:"absolute"}}>
 				<Tabs selected={3}/>
 			</div>
 			<h2>RentNFT</h2>

@@ -18,25 +18,12 @@ const UserInfo = () => {
 	})
 
     return (
-		<div>
-		<Card>
-			<CardContent>
-				<Grid container>
-				<Box sx={{m:1, p:1}}>
-					<Avatar src="/asssets/avatar.jpeg" variant="circular" />
-				</Box>
-				<Box sx={{m:1, p:1}}>
-					<Typography variant="h6">{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
-				</Box>
-				</Grid>
-				<Typography>user balance</Typography>
-			</CardContent>
-		</Card>
-		<Box sx={{m:2}}>
-		</Box>
-		<Box>
-			<Button fullWidth variant="contained" color="secondary">Logout</Button>
-		</Box>
+		<div style={{position:"absolute", zIndex:"4"}}>
+			<Avatar style={{position:"absolute", left:"25px", top:"120px"}} src="/asssets/avatar.jpeg" variant="circular" />
+			<Typography variant="h6" style={{position:"absolute", left:"90px", top:"130px"}}>{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
+			<Typography variant="h6" style={{position:"absolute", left:"90px", top:"250px"}}>{"100,000,000"}</Typography>
+			<Typography style={{position:"absolute", left:"90px", top:"350px"}}>user balance</Typography>
+			<Button style={{position:"absolute", left:"0px", top:"430px"}}><img alt="logout" style={{width:"306px", height:"44px"}} src={require('../image/red-button-on.png')}/></Button>
 		</div>
     );
 };

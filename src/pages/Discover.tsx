@@ -12,7 +12,7 @@ const Discover = () => {
 
     return (
 		<div>
-			<div>
+			<div style={{position:"absolute"}}>
 				<Tabs selected={2}/>
 			</div>
 			<h2>Discover</h2>
