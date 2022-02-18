@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 import QueryString from 'qs';
 
 
-const CreatePoll= () => {
+const CreatePoll = () => {
 	const [name, setName] = useState('');
 	const [query, setQuery] = useState({});
 

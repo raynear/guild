@@ -20,8 +20,8 @@ const MyAccount = () => {
 				<Route path="/GuildList" element={<GuildList />} />
 				<Route path="/Guild" element={<Guild />} />
 				<Route path="/Poll" element={<Poll />} />
-				<Route path="/PollList" element={<PollList />} />
-				<Route path="/" element={<CreatePoll />} />
+				<Route path="/" element={<PollList />} />
+				<Route path="/CreatePoll" element={<CreatePoll />} />
 				<Route path="/Inventory" element={<Inventory />} />
 				<Route path="/NFTInfo" element={<NFTInfo />} />
 			</Routes>
