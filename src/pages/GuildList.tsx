@@ -27,11 +27,11 @@ const GuildList = () => {
 					</Grid>
 				</Grid>
 			</Box>
-			<Box m={2}>
-				{guilds.map((guild:any) => (
-					<Box m={2}><GuildCard name={guild} key={guild} /></Box>
-				))}
-			</Box>
+				<div style={{position:"relative"}}>
+			{guilds.map((guild:any) => (
+					<GuildCard name={guild.name} address={guild.address} key={guild} />
+			))}
+				</div>
 		</div>
     );
 };

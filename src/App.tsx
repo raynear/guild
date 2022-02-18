@@ -15,18 +15,18 @@ function App() {
     // setTimeout(function() { //Start the timer
     const enable = window.klaytn._kaikas.isEnabled();
     console.log("isEnabled : ", enable);
-    // if(enable) {
+    if(enable) {
       setIsEnabled(enable);
       window.klaytn._kaikas.isApproved().then((approved: any) => {
         console.log("isApproved : ", approved);
       });
       window.klaytn._kaikas.isUnlocked().then((unlocked: any) => {
         console.log("isUnlocked: ", unlocked);
-        if(unlocked) {
+        if(unlocked === false) {
           setIsEnabled(unlocked);
         }
       });
-    // }
+    }
     // setIsEnabled(enable && unlock);
   // }, 50)
   },[]);
@@ -34,13 +34,39 @@ function App() {
   async function connect() {
     await window.klaytn.enable(false);
     console.log(window.klaytn._kaikas.isEnabled());
-    // window.location.reload();
+    window.location.reload();
   }
 
   if(isEnabled === false) {
     return (
-      <div>
-          <button onClick={connect}>connect</button>
+      <div style={{
+        height:"100%",
+        width:"100%",
+        textAlign:"center",
+        verticalAlign:"middle",
+        alignItems:"center",
+        justifyContent:"center",
+        backgroundImage: `url(${Image})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }}>
+        <div style={{
+          position:"absolute",
+          left:"50%",
+          top:"50%",
+          transform: "translateX(-50%) translateY(-50%)",
+        }}>
+          <img alt="title" src={require('./image/title.png')} style={{width:"580px", height:"285px"}}/>
+        </div>
+        <div style={{
+          position:"absolute",
+          left:"50%",
+          top:"50%",
+          transform: "translate(-50%, calc(-50% + 225px))",
+        }}>
+          <div onClick={connect}><img alt="title" src={require('./image/login-button.png')} style={{width:"480px", height:"114px"}}/></div>
+        </div>
       </div>
     );
   } else {
@@ -60,9 +86,9 @@ function App() {
         <div style={{width:"978px", height:"690px"}}>
         <Routes>
           <Route path="/" element={<MyAccount/>} />
-          <Route path="/myAccount" element={<MyAccount/>} />
-          <Route path="/discover" element={<Discover/>} />
-          <Route path="/rentNFT" element={<RentNFT/>} />
+          <Route path="/MyAccount" element={<MyAccount/>} />
+          <Route path="/Discover" element={<Discover/>} />
+          <Route path="/RentNFT" element={<RentNFT/>} />
         </Routes>
         </div>
       </div>

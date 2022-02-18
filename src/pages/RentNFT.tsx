@@ -10,20 +10,12 @@ const RentNFT = () => {
 	  };
 
     return (
-		<div>
 			<div style={{position:"absolute"}}>
 				<Tabs selected={3}/>
+				<h2>RentNFT</h2>
+        <input value={name} onChange={onChangeName} />
+				<h2>홈 : {name}</h2>
 			</div>
-			<h2>RentNFT</h2>
-			<div>
-        		<input value={name} onChange={onChangeName} />
-      		</div>
-			<div>
-				<h2>
-					홈 : {name}
-				</h2>
-			</div>
-		</div>
     );
 };
 

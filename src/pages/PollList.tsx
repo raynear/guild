@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const About = () => {
+const PollList = () => {
 	const [name, setName] = useState('');
 
 	const onChangeName = (e:any) => {
@@ -9,7 +9,7 @@ const About = () => {
 
     return (
 		<div>
-			<h2>test</h2>
+			<h2>poll list</h2>
 			<div>
         		<input value={name} onChange={onChangeName} />
       		</div>
@@ -22,4 +22,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default PollList;

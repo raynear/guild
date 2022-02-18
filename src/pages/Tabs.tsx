@@ -9,15 +9,15 @@ const Tabs = (props:any) => {
 	const navigate = useNavigate();
 
 	const click1 = (e:any) => {
-		navigate('/myaccount');
+		navigate('/MyAccount');
 	};
 
 	const click2 = () => {
-		navigate('/discover');
+		navigate('/Discover');
 	}
 
 	const click3 = () => {
-		navigate('/rentnft');
+		navigate('/RentNFT');
 	}
 
     return (

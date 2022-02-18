@@ -13,7 +13,7 @@ export class Guild {
 	}
 
 	async getGuilds() {
-		return await ["Red Eagles", "Black Knight"];
+		return await [{name:"Red Eagles", address:"0xa8f7a8f789698a6f98"}, {name:"Black Knight", address:"0xa8f7a8f789698a6f98"}];
 	}
 }
 
