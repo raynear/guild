@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import MyAccount from './pages/MyAccount';
 import Discover from './pages/Discover';
 import RentNFT from './pages/RentNFT';
+
+import My from './pages/My';
+import GuildList from './pages/GuildList';
+import Guild from './pages/Guild';
+import Inventory from './pages/Inventory';
+import Poll from './pages/Poll';
+import PollList from './pages/PollList';
+import CreatePoll from './pages/CreatePoll';
+import NFTInfo from './pages/NFTInfo';
 
 import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
@@ -12,7 +21,7 @@ function App() {
   const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
-    // setTimeout(function() { //Start the timer
+    setTimeout(function() { //Start the timer
     const enable = window.klaytn._kaikas.isEnabled();
     console.log("isEnabled : ", enable);
     if(enable) {
@@ -28,7 +37,7 @@ function App() {
       });
     }
     // setIsEnabled(enable && unlock);
-  // }, 50)
+  }, 50)
   },[]);
 
   async function connect() {
@@ -85,10 +94,19 @@ function App() {
         <img alt="cloud" src={Cloud} style={{width:"600px", height:"300px", position:"absolute", top:`calc(100% - 300px)`, left:"0%", zIndex:5}}/>
         <div style={{width:"978px", height:"690px"}}>
         <Routes>
-          <Route path="/" element={<MyAccount/>} />
-          <Route path="/MyAccount" element={<MyAccount/>} />
-          <Route path="/Discover" element={<Discover/>} />
-          <Route path="/RentNFT" element={<RentNFT/>} />
+          <Route path="/" element={<MyAccount/>} >
+            <Route index element={<GuildList />} />
+            <Route path="Guild/:id" element={<My />}>
+              <Route index element={<Guild />} />
+              <Route path="Poll/:pollId" element={<Poll />} />
+              <Route path="PollList" element={<PollList />} />
+              <Route path="CreatePoll/:pollType" element={<CreatePoll />} />
+              <Route path="Inventory" element={<Inventory />} />
+              <Route path="NFTInfo/:nftId" element={<NFTInfo />} />
+            </Route>
+          </Route>
+          <Route path="Discover" element={<Discover/>} />
+          <Route path="RentNFT" element={<RentNFT/>} />
         </Routes>
         </div>
       </div>

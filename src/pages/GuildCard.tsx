@@ -11,7 +11,7 @@ const GuildCard = (props:any) => {
   };
 
   return (
-    <Link to={"/MyAccount/Guild?id="+props.address}>
+    <Link to={"/Guild/"+props.address}>
       <div style={{position:"relative", left:"25px", width:"601px", height:"134px"}}>
         <img alt="guild summary" src={require("../image/guild_list_item.png")} style={{width:"601px", height:"134px"}}/>
         <Typography variant="h5" style={{textShadow:"-1px -1px #412220, 0px -0px #412220, -0px 0px #412220, 0px 0px #412220", color:"#7f433d", position:"absolute", left:"15px", top:"12px"}}>{props.name}</Typography>

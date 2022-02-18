@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 import {Typography} from '@mui/material';
 
 const PollCard = (props:any) => {
   const [name, setName] = useState('');
 
+  const {id} = useParams();
+
   const onChangeName = (e:any) => {
     setName(e.target.value);
   };
 
   return (
-    <Link to={"/MyAccount/Poll?id="+props.address}>
+    <Link to={"/Guild/"+id+"/Poll/"+props.name}>
       <div style={{position:"relative", left:"25px", width:"147px", height:"210px"}}>
         <img alt="guild summary" src={require("../image/card.png")} style={{width:"147px", height:"210px"}}/>
         <img alt="emblem" width="80" src="/assets/guild2.png" style={{position:"absolute", left:"40px", top:"50px", width:"60px", height:"60px"}} />

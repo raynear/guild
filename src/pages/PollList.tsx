@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
@@ -13,6 +13,7 @@ const PollList = () => {
 	const [query, setQuery] = useState({});
 
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const json = [
 		{name:"aa", type:"supply", contractAddress:"0xaaa", nftId:"1", due:"1일"},
@@ -32,6 +33,7 @@ const PollList = () => {
   };
 
 	const goBack = () => {
+		navigate(-1);
 	}
 
 	const supplyNFT = () => {
@@ -39,7 +41,7 @@ const PollList = () => {
 
   return (
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"570px"}}>
-      <Link to={""}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></Link>
+      <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
 			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Poll List (${})"}</Typography>
 			<div style={{display:"flex", flexDirection:"row", flexWrap:"wrap", overflow:"auto", position:"absolute", left:"0px", top:"100px", width:"640px", height:"470px"}}>
 				{json.map((data:any) => {
@@ -50,6 +52,6 @@ const PollList = () => {
     );
 };
 
-// <Link to={"/MyAccount/Guild/supplyNFT"}>
+// <Link to={"/Guild/supplyNFT"}>
 
 export default PollList;

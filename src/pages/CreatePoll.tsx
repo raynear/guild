@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
@@ -11,6 +11,7 @@ const CreatePoll = () => {
 	const [query, setQuery] = useState({});
 
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const queryData = QueryString.parse(location.search, { ignoreQueryPrefix: true });
@@ -22,6 +23,7 @@ const CreatePoll = () => {
   };
 
 	const goBack = () => {
+		navigate(-1);
 	}
 
 	const supplyNFT = () => {
@@ -29,7 +31,7 @@ const CreatePoll = () => {
 
   return (
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"570px"}}>
-      <Link to={""}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></Link>
+      <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
 			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Create Poll (${})"}</Typography>
 			<Typography variant="subtitle1" style={{position:"absolute", left:"25px", top:"95px", color:"#bcdeef"}}>Enter the contract address and token ID of the NFT to be provided to our guild.</Typography>
       <img alt="g" src={require("../image/nft-info.png")} style={{position:"absolute", left:"20px", top:"130px", width:"596px", height:"67px"}}/>
@@ -53,6 +55,6 @@ const CreatePoll = () => {
     );
 };
 
-// <Link to={"/MyAccount/Guild/supplyNFT"}>
+// <Link to={"/Guild/supplyNFT"}>
 
 export default CreatePoll;

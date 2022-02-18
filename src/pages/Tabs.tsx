@@ -9,7 +9,7 @@ const Tabs = (props:any) => {
 	const navigate = useNavigate();
 
 	const click1 = (e:any) => {
-		navigate('/MyAccount');
+		navigate('/');
 	};
 
 	const click2 = () => {
