@@ -20,24 +20,19 @@ import Cloud from './image/cloud.png';
 function App() {
   const [isEnabled, setIsEnabled] = useState(false);
 
+  // setTimeout(function() { //Start the timer
   useEffect(() => {
-    setTimeout(function() { //Start the timer
     const enable = window.klaytn._kaikas.isEnabled();
     console.log("isEnabled : ", enable);
     if(enable) {
-      setIsEnabled(enable);
       window.klaytn._kaikas.isApproved().then((approved: any) => {
         console.log("isApproved : ", approved);
       });
       window.klaytn._kaikas.isUnlocked().then((unlocked: any) => {
         console.log("isUnlocked: ", unlocked);
-        if(unlocked === false) {
-          setIsEnabled(unlocked);
-        }
+        setIsEnabled(unlocked);
       });
     }
-    // setIsEnabled(enable && unlock);
-  }, 50)
   },[]);
 
   async function connect() {

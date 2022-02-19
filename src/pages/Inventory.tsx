@@ -26,7 +26,7 @@ const Inventory = () => {
 	useEffect(() => {
 		const queryData = QueryString.parse(location.search, { ignoreQueryPrefix: true });
 		setQuery(queryData);
-	})
+	},[]);
 
 	const onChangeName = (e:any) => {
 		setName(e.target.value);
