@@ -646,6 +646,46 @@ export const KIP17_ABI = [
 export const Guild_ABI = [
 	{
 		"constant": false,
+		"inputs": [],
+		"name": "getSupplyNFTProposals",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_hash",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_NFTContract",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_NFTId",
+				"type": "uint256"
+			}
+		],
+		"name": "proposeSupplyNFT",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -680,6 +720,26 @@ export const Guild_ABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_votes",
+				"type": "bool"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": true,

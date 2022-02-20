@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
 import MyAccount from './pages/MyAccount';
 import Discover from './pages/Discover';
@@ -17,11 +18,31 @@ import NFTInfo from './pages/NFTInfo';
 import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
 
+import useInterval from './util/util';
+
+import {accountState} from './recoil/atoms';
+
 function App() {
   const [isEnabled, setIsEnabled] = useState(false);
+  const setAccount = useSetRecoilState(accountState);
+
+  useInterval(() => {
+    window.klaytn._kaikas.isUnlocked().then((unlocked: any) => {
+      setIsEnabled(unlocked);
+    })
+  }, 5000);
 
   // setTimeout(function() { //Start the timer
   useEffect(() => {
+    window.klaytn.on('accountsChanged', (accounts:any) => {
+      console.log('account changed', accounts);
+      setAccount(accounts[0]);
+    });
+
+    window.caver.klay.getAccounts().then((accounts:any) => {
+			setAccount(accounts[0]);
+		});
+
     const enable = window.klaytn._kaikas.isEnabled();
     console.log("isEnabled : ", enable);
     if(enable) {
@@ -33,7 +54,7 @@ function App() {
         setIsEnabled(unlocked);
       });
     }
-  },[]);
+  },[setAccount]);
 
   async function connect() {
     await window.klaytn.enable(false);

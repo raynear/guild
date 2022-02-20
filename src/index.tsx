@@ -7,6 +7,13 @@ import reportWebVitals from './reportWebVitals';
 
 import {RecoilRoot} from 'recoil';
 
+declare global {
+    interface Window {
+        klaytn:any;
+        caver:any;
+    }
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>

@@ -6,27 +6,52 @@ import { Avatar, Grid, Box, Button } from '@mui/material';
 import config from '../util/config';
 import { KIP17_ABI, Guild_ABI } from '../util/ABI';
 
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { accountState } from '../recoil/atoms';
+
+import collection from '../util/collection';
+import membership from '../util/membership';
+import guild from '../util/guild';
+
 const UserInfo = () => {
-	const [account, setAccount] = useState('');
+	const [value, setValue] = useState({membershipNFT:0, memberRevenue:0});
+	const account = useRecoilValue(accountState);
+	// const [account , b] = useRecoilState(accountState);
+	// const account = '0x0000';
 
 	useEffect(() => {
-		window.caver.klay.getAccounts().then((accounts:any) => {
-			setAccount(accounts[0]);
-			// const myContract = new window.caver.klay.Contract(KIP17_ABI, config.MembershipNFTAddress);
+		console.log("aaaa", account);
+		collection.getBalance(account).then(result => {
+			console.log("collection balance", result);
 		});
+		membership.getBalance(account).then(result => {
+			console.log("membership balance", result);
+			setValue({memberRevenue:value.memberRevenue, membershipNFT:result});
+		});
+
+		guild.getMemberRevenue(account).then(result => {
+			console.log("member revenue", result);
+			setValue({memberRevenue:result, membershipNFT:value.membershipNFT});
+		});
+
+		// window.caver.klay.getAccounts().then((accounts:any) => {
+		// 	setAccount(accounts[0]);
+		// 	// const myContract = new window.caver.klay.Contract(KIP17_ABI, config.MembershipNFTAddress);
+		// });
 
 		const myContract = new window.caver.klay.Contract(Guild_ABI, config.GuildContractAddress);
 		myContract.methods.guildName().call().then((result:any) => {
 			console.log(result);
 		});
-	})
+	}, [])
 
+		console.log(account);
 
 	return (
 	<div style={{position:"absolute", zIndex:"4"}}>
 		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"155px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
-		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"285px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"100,000,000"}</Typography>
-		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"395px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"14,300"}</Typography>
+		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"285px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{value.membershipNFT}</Typography>
+		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"395px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{value.memberRevenue}</Typography>
 		<Button style={{position:"absolute", left:"6px", top:"440px"}}><img alt="logout" style={{width:"306px", height:"44px"}} src={require('../image/red-button-on.png')}/></Button>
 	</div>
 	);

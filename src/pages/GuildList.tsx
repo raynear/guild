@@ -31,7 +31,7 @@ const GuildList = () => {
 			</Box>
 				<div style={{position:"relative"}}>
 			{guilds.map((guild:any) => (
-					<GuildCard name={guild.name} address={guild.address} key={guild} />
+					<GuildCard name={guild.name} address={guild.address} key={guild.name} />
 			))}
 				</div>
 		</div>
