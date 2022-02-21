@@ -7,7 +7,7 @@ import guild from '../util/guild';
 import GuildCard from './GuildCard';
 
 const GuildList = () => {
-	const [guilds, setGuilds] = useState([{name:"", address:""}]);
+	const [guilds, setGuilds] = useState([{name:"Wiggler", address:"0x2745a300B5014985185cc817db7E2374088010BF"}]);
 
 	useEffect(() => {
 		guild.getGuilds().then(result => setGuilds(result));

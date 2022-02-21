@@ -646,15 +646,25 @@ export const KIP17_ABI = [
 export const Guild_ABI = [
 	{
 		"constant": false,
-		"inputs": [],
-		"name": "getSupplyNFTProposals",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "string",
-				"name": "",
+				"name": "_hash",
 				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_NFTContract",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_NFTId",
+				"type": "uint256"
 			}
 		],
+		"name": "proposeDisposeNFT",
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -771,6 +781,21 @@ export const Guild_ABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getNFTproposals",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
