@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams, Outlet } from 'react-router-dom';
 
+import {useRecoilValue} from 'recoil';
+import {accountState} from '../recoil/atoms';
+
 import { Typography } from '@mui/material';
 
 import config from '../util/config';
 import { KIP17_ABI, Guild_ABI } from '../util/ABI';
 
+import guild from '../util/guild';
+import membership from '../util/membership';
+import collection from '../util/collection';
+
 const Guild = (props:any) => {
 	const [name, setName] = useState('');
-	const [guildInfo, setGuildInfo] = useState({});
+	const [guildInfo, setGuildInfo] = useState({ItemOwnedCnt:0, BalanceInKlay:0, GuildRevenue:0, TotalMembershipNFTCnt:0});
+  const [userInfo, setUserInfo] = useState({UserRevenue:0, UserMembershipNFTCnt:0});
+
+  const account = useRecoilValue(accountState);
 
 	const navigate = useNavigate();
 	const { id } = useParams();
 
-	// const location = useLocation();
-	const membership = new window.caver.klay.Contract(KIP17_ABI, config.MembershipNFTAddress);
-	const collection = new window.caver.klay.Contract(KIP17_ABI, config.CollectionNFTAddress);
-	const guild = new window.caver.klay.Contract(Guild_ABI, config.GuildContractAddress);
-
-	useEffect(() => {
-	guild.methods.guildName().call().then((result:any) => {
-		setName(result);
-	});
-	collection.methods.balanceOf(config.GuildContractAddress).call().then((result:any) => {
-		console.log(result);
-		setGuildInfo({balance:result, ...guildInfo})
-	});
-},[]);
-
+  useEffect(() => {
+		console.log("raynear", account);
+		console.log("props", id);
+		guild.getGuildName().then((result:any) => setName(result));
+    guild.getGuildRevenue().then((result:any) => setGuildInfo({...guildInfo, GuildRevenue:result}));
+    guild.getMemberRevenue(account).then((result:any) => setUserInfo({...userInfo, UserRevenue:result}));
+    collection.getBalance(id as string).then((result:any) => setGuildInfo({...guildInfo, ItemOwnedCnt:result}));
+    membership.getBalance(account).then((result:any) => setUserInfo({...userInfo, UserMembershipNFTCnt:result}));
+    window.caver.klay.getBalance(id).then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:window.caver.utils.fromPeb(result, "KLAY")}));
+  },[])
 
 	const goBack = () => {
 		navigate(-1);
@@ -49,7 +54,7 @@ const Guild = (props:any) => {
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"570px"}}>
       <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
 			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{name}</Typography>
-			<Typography variant="caption" style={{position:"absolute", right:"30px", top:"75px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#000"}}>MEMBERSHIP NFTs (TOTAL: 10K / MY: 329)</Typography>
+			<Typography variant="caption" style={{position:"absolute", right:"30px", top:"75px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#000"}}>{"MY MEMBERSHIP NFTs : "+userInfo.UserMembershipNFTCnt}</Typography>
       <img alt="g" src={require("../image/green-rectangle.png")} style={{position:"absolute", left:"500px", top:"50px", width:"95px", height:"21px"}}/>
       <img alt="a" src={require("../image/guild-info-bg.png")} style={{position:"absolute", left:"28px", top:"110px", width:"585px", height:"61px"}}/>
       <img alt="b" src={require("../image/about-rules-button.png")} style={{position:"absolute", left:"28px", top:"190px", width:"188px", height:"48px"}}/>
@@ -60,15 +65,15 @@ const Guild = (props:any) => {
 
       <Typography variant="caption" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#20420c", position:"absolute", left:"510px", top:"52px"}}>{config.GuildContractAddress.substring(0, 6)+".."+config.GuildContractAddress.substring(37)}</Typography>
       <img alt="emblem" width="80" src="/assets/guild2.png" style={{position:"absolute", left:"40px", top:"110px", width:"60px", height:"60px"}} />
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"145px", top:"137px"}}>100</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"255px", top:"137px"}}>100</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"365px", top:"137px"}}>100</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"525px", top:"137px"}}>100</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"145px", top:"137px"}}>{guildInfo.ItemOwnedCnt}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"255px", top:"137px"}}>{guildInfo.BalanceInKlay}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"365px", top:"137px"}}>{guildInfo.GuildRevenue}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"525px", top:"137px"}}>{userInfo.UserRevenue}</Typography>
 
-			<Link to={"/Guild/"+id+"/CreatePoll/supplyNFT"}><div style={{position:"absolute", left:"40px", top:"310px", width:"555px", height:"58px"}} onClick={supplyNFT}/></Link>
-			<Link to={"/Guild/"+id+"/CreatePoll/disposeNFT"}><div style={{position:"absolute", left:"40px", top:"367px", width:"555px", height:"58px"}} onClick={disposeNFT}/></Link>
-			<Link to={"/Guild/"+id+"/CreatePoll/changeRentConditionNFT"}><div style={{position:"absolute", left:"40px", top:"424px", width:"555px", height:"58px"}} onClick={changeRentCondition}/></Link>
-			<Link to={"/Guild/"+id+"/CreatePoll/dividend"}><div style={{position:"absolute", left:"40px", top:"480px", width:"555px", height:"58px"}} onClick={dividend}/></Link>
+			<Link to={"/Guild/"+id+"/supplyNFT"}><div style={{position:"absolute", left:"40px", top:"310px", width:"555px", height:"58px"}} onClick={supplyNFT}/></Link>
+			<Link to={"/Guild/"+id+"/disposeNFT"}><div style={{position:"absolute", left:"40px", top:"367px", width:"555px", height:"58px"}} onClick={disposeNFT}/></Link>
+			<Link to={"/Guild/"+id+"/changeRentConditionNFT"}><div style={{position:"absolute", left:"40px", top:"424px", width:"555px", height:"58px"}} onClick={changeRentCondition}/></Link>
+			<Link to={"/Guild/"+id+"/dividend"}><div style={{position:"absolute", left:"40px", top:"480px", width:"555px", height:"58px"}} onClick={dividend}/></Link>
 		</div>
     );
 };

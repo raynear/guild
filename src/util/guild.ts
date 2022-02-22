@@ -1,8 +1,9 @@
 import config from './config';
-import { Guild_ABI } from './ABI';
+import { KIP17_ABI,Guild_ABI } from './ABI';
 
 import { useRecoilValue } from 'recoil';
 import { accountState } from '../recoil/atoms'
+import membership from './membership';
 
 export class Guild {
 	address:string;
@@ -13,11 +14,19 @@ export class Guild {
 		this.address = address;
 	}
 
-	async getGuilds() {
+	async getGuildName() {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		const name = await guild.methods.guildName().call();
 
-		return [{name:name, address:config.GuildContractAddress}, {name:"Black Knight", address:"0x2745a300B5014985185cc817db7E2374088010BF"}];
+		return name;
+	}
+
+	async getGuilds() {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		const name = await guild.methods.guildName().call();
+		const membershipAddress = await guild.methods.membership().call();
+
+		return [{name:name, address:config.GuildContractAddress}, {name:"Black Knight", address:"0x0000000000000000000000000000000000000001"}];
 	}
 
 	async getGuildRevenue() {

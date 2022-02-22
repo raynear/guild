@@ -18,9 +18,12 @@ export class Collection {
 	}
 
 	async getBalance(account:string) {
+		console.log("collection:getBalance");
 		console.log(account);
-		const membership = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		const balance = await membership.methods.balanceOf(account).call();
+		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
+		console.log("a");
+		const balance = await collection.methods.balanceOf(account).call();
+		console.log("b", balance);
 
 		return balance;
 	}

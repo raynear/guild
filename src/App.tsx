@@ -14,6 +14,9 @@ import Poll from './pages/Poll';
 import PollList from './pages/PollList';
 import CreatePoll from './pages/CreatePoll';
 import NFTInfo from './pages/NFTInfo';
+import SupplyNFT from './pages/SupplyNFT';
+import DisposeNFT from './pages/DisposeNFT';
+import Dividend from './pages/Dividend';
 
 import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
@@ -24,19 +27,28 @@ import {accountState} from './recoil/atoms';
 
 function App() {
   const [isEnabled, setIsEnabled] = useState(false);
+  const [correctNetwork, setCorrectNetwork] = useState(true);
   const setAccount = useSetRecoilState(accountState);
 
   useInterval(() => {
     window.klaytn._kaikas.isUnlocked().then((unlocked: any) => {
       setIsEnabled(unlocked);
     })
-  }, 5000);
+    if(window.klaytn.networkVersion !== 1001) {
+        console.log("network version incorrect", window.klaytn.networkVersion);
+        setCorrectNetwork(false);
+    }
+  }, 1000);
 
   // setTimeout(function() { //Start the timer
   useEffect(() => {
     window.klaytn.on('accountsChanged', (accounts:any) => {
       console.log('account changed', accounts);
       setAccount(accounts[0]);
+    });
+
+    window.klaytn.on('networkChanged', (network:any) => {
+      console.log('network changed', network);
     });
 
     window.caver.klay.getAccounts().then((accounts:any) => {
@@ -54,6 +66,11 @@ function App() {
         setIsEnabled(unlocked);
       });
     }
+    if(window.klaytn.networkVersion !== 1001) {
+        console.log("network version incorrect", window.klaytn.networkVersion);
+        // setCorrectNetwork(false);
+        setCorrectNetwork(true);
+    }
   },[setAccount]);
 
   async function connect() {
@@ -62,7 +79,39 @@ function App() {
     window.location.reload();
   }
 
-  if(isEnabled === false) {
+  if(correctNetwork === false) {
+    return(
+      <div style={{
+        height:"100%",
+        width:"100%",
+        textAlign:"center",
+        verticalAlign:"middle",
+        alignItems:"center",
+        justifyContent:"center",
+        backgroundImage: `url(${Image})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }}>
+        <div style={{
+          position:"absolute",
+          left:"50%",
+          top:"50%",
+          transform: "translateX(-50%) translateY(-50%)",
+        }}>
+          <img alt="title" src={require('./image/title.png')} style={{width:"580px", height:"285px"}}/>
+        </div>
+        <div style={{
+          position:"absolute",
+          left:"50%",
+          top:"50%",
+          transform: "translate(-50%, calc(-50% + 225px))",
+        }}>
+          <h3>Change Klaytn Network to Baobab</h3>
+        </div>
+      </div>
+    );
+  } else if(isEnabled === false) {
     return (
       <div style={{
         height:"100%",
@@ -116,7 +165,10 @@ function App() {
               <Route index element={<Guild />} />
               <Route path="Poll/:pollId" element={<Poll />} />
               <Route path="PollList" element={<PollList />} />
-              <Route path="CreatePoll/:pollType" element={<CreatePoll />} />
+              <Route path="CreatePoll" element={<CreatePoll />} />
+              <Route path="SupplyNFT" element={<SupplyNFT />} />
+              <Route path="DisposeNFT" element={<DisposeNFT />} />
+              <Route path="Dividend" element={<Dividend />} />
               <Route path="Inventory" element={<Inventory />} />
               <Route path="NFTInfo/:nftId" element={<NFTInfo />} />
             </Route>
