@@ -22,4 +22,12 @@ function useInterval(callback: () => void, delay: number | null) {
   }, [delay])
 }
 
+
+export function shorten(str:string, len:number) {
+  if(str.length > len) {
+    return str.substring(0, len/2+1) + "..." + str.substring(len/2+1, len);
+  }
+  return str;
+}
+
 export default useInterval

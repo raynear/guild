@@ -19,13 +19,32 @@ export class Collection {
 
 	async getBalance(account:string) {
 		console.log("collection:getBalance");
-		console.log(account);
 		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		console.log("a");
 		const balance = await collection.methods.balanceOf(account).call();
-		console.log("b", balance);
+		console.log("balance", balance);
 
 		return balance;
+	}
+
+	async getItems(account:string) {
+		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
+
+		const balance = await collection.methods.balanceOf(account).call();
+
+		const ret = [];
+		for(let i=0; i<balance; i++) {
+			const nft = await collection.methods.tokenOfOwnerByIndex(account, i).call();
+			ret.push(nft);
+		}
+
+		return ret;
+	}
+
+	async getItem(account:string, id:number) {
+		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
+		const nft = await collection.methods.tokenOfOwnerByIndex(account, id).call();
+
+		return nft;
 	}
 }
 

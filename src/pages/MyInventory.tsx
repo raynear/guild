@@ -9,8 +9,9 @@ import {useRecoilValue} from 'recoil';
 import {accountState} from '../recoil/atoms';
 
 import collection from '../util/collection';
+import guild from '../util/guild';
 
-const Inventory = () => {
+const MyInventory = () => {
 	const [items, setItems] = useState([{id:"0", name:"", price:"", image:"", description:"", owner:""}]);
 	const account = useRecoilValue(accountState);
 
@@ -19,12 +20,8 @@ const Inventory = () => {
 //		{name:"aa", type:"supply", contractAddress:"0xaaa", nftId:"1", due:"1일"},
 
 	useEffect(() => {
-		collection.getBalance(account).then((balance) => {
-			for(let i=0 ; i<balance ; i++) {
-				collection.getItem(account, i).then((data) => {
-					setItems([...items, data]);
-				});
-			}
+		guild.getRentedNFTs(account).then((data) => {
+			console.log(data);
 		});
 	},[]);
 
@@ -48,4 +45,4 @@ const Inventory = () => {
 
 // <Link to={"/Guild/supplyNFT"}>
 
-export default Inventory;
+export default MyInventory;

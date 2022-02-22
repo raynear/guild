@@ -24,7 +24,7 @@ export class Guild {
 	async getGuilds() {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		const name = await guild.methods.guildName().call();
-		const membershipAddress = await guild.methods.membership().call();
+		// const membershipAddress = await guild.methods.membership().call();
 
 		return [{name:name, address:config.GuildContractAddress}, {name:"Black Knight", address:"0x0000000000000000000000000000000000000001"}];
 	}
@@ -80,6 +80,31 @@ export class Guild {
 		const proposals = await guild.methods.getNFTproposals().call();
 
 		return proposals;
+	}
+
+	async getNFTProposal(id:number) {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		const proposal = await guild.methods.proposals(id).call();
+
+		return proposal;
+	}
+
+	async getMembershipAddress() {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		const membership = await guild.methods.membership().call();
+
+		return membership;
+	}
+
+	async getCollectionAddress() {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		const collection = await guild.methods.collection().call();
+
+		return collection;
+	}
+
+	async getRentedNFTs(account:string) {
+		return [0,1];
 	}
 }
 

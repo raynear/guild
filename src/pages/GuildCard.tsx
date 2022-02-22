@@ -7,6 +7,8 @@ import guild from '../util/guild';
 import collection from '../util/collection';
 import membership from '../util/membership';
 
+import {shorten} from '../util/util';
+
 import {useRecoilValue} from 'recoil';
 import {accountState} from '../recoil/atoms';
 
@@ -26,13 +28,6 @@ const GuildCard = (props:any) => {
 
   console.log(guildInfo);
   console.log(userInfo);
-
-  function shorten(str:string, len:number) {
-    if(str.length > len) {
-      return str.substring(0, len/2+1) + "..." + str.substring(len/2+1, len);
-    }
-    return str;
-  }
 
   return (
     <Link to={"/Guild/"+props.address}>

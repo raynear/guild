@@ -7,7 +7,6 @@ import {accountState} from '../recoil/atoms';
 import { Typography } from '@mui/material';
 
 import config from '../util/config';
-import { KIP17_ABI, Guild_ABI } from '../util/ABI';
 
 import guild from '../util/guild';
 import membership from '../util/membership';
@@ -31,7 +30,7 @@ const Guild = (props:any) => {
     guild.getMemberRevenue(account).then((result:any) => setUserInfo({...userInfo, UserRevenue:result}));
     collection.getBalance(id as string).then((result:any) => setGuildInfo({...guildInfo, ItemOwnedCnt:result}));
     membership.getBalance(account).then((result:any) => setUserInfo({...userInfo, UserMembershipNFTCnt:result}));
-    window.caver.klay.getBalance(id).then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:window.caver.utils.fromPeb(result, "KLAY")}));
+    window.caver.klay.getBalance(id).then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
   },[])
 
 	const goBack = () => {
@@ -55,7 +54,7 @@ const Guild = (props:any) => {
       <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
 			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{name}</Typography>
 			<Typography variant="caption" style={{position:"absolute", right:"30px", top:"75px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#000"}}>{"MY MEMBERSHIP NFTs : "+userInfo.UserMembershipNFTCnt}</Typography>
-      <img alt="g" src={require("../image/green-rectangle.png")} style={{position:"absolute", left:"500px", top:"50px", width:"95px", height:"21px"}}/>
+      <img alt="g" src={require("../image/green-rectangle.png")} style={{position:"absolute", left:"500px", top:"50px", width:"110px", height:"21px"}}/>
       <img alt="a" src={require("../image/guild-info-bg.png")} style={{position:"absolute", left:"28px", top:"110px", width:"585px", height:"61px"}}/>
       <img alt="b" src={require("../image/about-rules-button.png")} style={{position:"absolute", left:"28px", top:"190px", width:"188px", height:"48px"}}/>
       <Link to={"/Guild/"+id+"/Inventory"}><img alt="c" src={require("../image/inventory-button.png")} style={{position:"absolute", left:"230px", top:"190px", width:"188px", height:"48px"}}/></Link>
@@ -66,7 +65,7 @@ const Guild = (props:any) => {
       <Typography variant="caption" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#20420c", position:"absolute", left:"510px", top:"52px"}}>{config.GuildContractAddress.substring(0, 6)+".."+config.GuildContractAddress.substring(37)}</Typography>
       <img alt="emblem" width="80" src="/assets/guild2.png" style={{position:"absolute", left:"40px", top:"110px", width:"60px", height:"60px"}} />
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"145px", top:"137px"}}>{guildInfo.ItemOwnedCnt}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"255px", top:"137px"}}>{guildInfo.BalanceInKlay}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"255px", top:"137px"}}>{guildInfo.BalanceInKlay.toFixed(4)}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"365px", top:"137px"}}>{guildInfo.GuildRevenue}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"525px", top:"137px"}}>{userInfo.UserRevenue}</Typography>
 
