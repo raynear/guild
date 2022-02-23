@@ -93,7 +93,7 @@ const PollList = () => {
 			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Poll List"}</Typography>
 			<div style={{display:"flex", flexDirection:"row", flexWrap:"wrap", overflow:"auto", position:"absolute", left:"0px", top:"100px", width:"640px", height:"470px"}}>
 				{proposals.map((data:any) => {
-					return <PollCard {...data} key={data.hash} />;
+					return <PollCard {...data} key={data.id} />;
 				})}
 			</div>
 		</div>

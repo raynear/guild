@@ -14,6 +14,8 @@ import Poll from './pages/Poll';
 import PollList from './pages/PollList';
 import CreatePoll from './pages/CreatePoll';
 import NFTInfo from './pages/NFTInfo';
+import Supply from './pages/Supply';
+import Dispose from './pages/Dispose';
 import SupplyNFT from './pages/SupplyNFT';
 import DisposeNFT from './pages/DisposeNFT';
 import ChangeRentCondition from './pages/ChangeRentCondition';
@@ -54,6 +56,7 @@ function App() {
     });
 
     window.caver.klay.getAccounts().then((accounts:any) => {
+      console.log(accounts);
 			setAccount(accounts[0]);
 		});
 
@@ -67,6 +70,8 @@ function App() {
         console.log("isUnlocked: ", unlocked);
         setIsEnabled(unlocked);
       });
+    } else {
+      window.klaytn.enable(false);
     }
     if(window.klaytn.networkVersion !== 1001) {
         console.log("network version incorrect", window.klaytn.networkVersion);
@@ -168,6 +173,8 @@ function App() {
               <Route path="Poll/:pollId" element={<Poll />} />
               <Route path="PollList" element={<PollList />} />
               <Route path="CreatePoll" element={<CreatePoll />} />
+              <Route path="Supply/:pollId" element={<Supply/>} />
+              <Route path="Dispose/:pollId" element={<Dispose/>} />
               <Route path="SupplyNFT" element={<SupplyNFT />} />
               <Route path="DisposeNFT" element={<DisposeNFT />} />
               <Route path="ChangeRentCondition" element={<ChangeRentCondition />} />

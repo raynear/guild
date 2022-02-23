@@ -3,7 +3,9 @@ import { KIP17_ABI,Guild_ABI } from './ABI';
 
 import { useRecoilValue } from 'recoil';
 import { accountState } from '../recoil/atoms'
+
 import membership from './membership';
+import collection from './collection';
 
 export class Guild {
 	address:string;
@@ -122,7 +124,30 @@ export class Guild {
 	}
 
 	async getRentedNFTs(account:string) {
-		return [0,1];
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		const balance = await collection.getBalance(account);
+		const items = [];
+		for(let i=0 ; i<balance ; i++) {
+			const item = await collection.getItem(account, i);
+			const res = await guild.isRentedNFT(config.CollectionNFTAddress, item).call();
+			if(res) {
+				items.push(item);
+			}
+		}
+
+		return items;
+	}
+
+	async getRentableNFTs() {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		const balance = await collection.getBalance(this.address);
+		const items = [];
+		for(let i=0 ; i<balance ; i++) {
+			const item = await collection.getItem(this.address, i);
+			items.push(item);
+		}
+
+		return items;
 	}
 }
 

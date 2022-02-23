@@ -40,9 +40,21 @@ export class Collection {
 		return ret;
 	}
 
+	async approve(address:string, nftId:number) {
+		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
+		collection.methods.approve(address, nftId).send({from:address, gas:3000000});
+	}
+
+	async ownerOf(address:string, nftId:number) {
+		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
+		return collection.methods.ownerOf(nftId).call();
+	}
+
 	async getItem(address:string, id:number) {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, address);
-		return "";
+		const nftId = await collection.methods.tokenOfOwnerByIndex(address, id).call();
+		const nftInfo = await collection.methods.getItem(nftId).call();
+		return nftInfo;
 		// const nft = await collection.methods.getItem(id).call();
 		// return nft;
 	}

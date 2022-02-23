@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
 
-import Typography from '@mui/material/Typography';
-import { Avatar, Grid, Box, Button } from '@mui/material';
+import { Avatar, Grid, Box, Button, Typography } from '@mui/material';
 
 import config from '../util/config';
 import { KIP17_ABI, Guild_ABI } from '../util/ABI';
 
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { accountState } from '../recoil/atoms';
 
 import collection from '../util/collection';
@@ -15,7 +14,6 @@ import membership from '../util/membership';
 import guild from '../util/guild';
 
 const UserInfo = () => {
-	const [value, setValue] = useState({membershipNFT:0, memberRevenue:0});
 	const [userRevenue, setUserRevenue] = useState(0);
 	const [userMembershipNFTCnt, setUserMembershipNFTCnt] = useState(0);
 	const account = useRecoilValue(accountState);
