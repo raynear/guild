@@ -7,7 +7,7 @@ import collection from '../util/collection';
 import guild from '../util/guild';
 
 
-const SupplyNFT = () => {
+const Dispose = () => {
 	const [value, setValue] = useState({contractAddress:"", nftId:0, price:0});
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:""});
 
@@ -20,11 +20,10 @@ const SupplyNFT = () => {
 		navigate(-1);
 	}
 
-	const supplyNFT = () => {
-		guild.proposeSupplyNFT(value.contractAddress, value.nftId, value.price);
+	const disposeNFT = () => {
+		guild.proposeDisposeNFT(value.contractAddress, value.nftId, value.price);
 		navigate(-1);
 	}
-
 
 	function bringNFTInfo() {
 		if(value.contractAddress !== "") {
@@ -33,7 +32,6 @@ const SupplyNFT = () => {
 			});
 		}
 	}
-
 
 	const handleAddress = (e:any) => {
 		setValue({...value, contractAddress:e.target.value});
@@ -52,7 +50,7 @@ const SupplyNFT = () => {
   return (
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"570px"}}>
       <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
-			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Supply NFT"}</Typography>
+			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Dispose NFT"}</Typography>
 			<Typography variant="subtitle1" style={{position:"absolute", left:"25px", top:"85px", color:"#bcdeef"}}>Enter the contract address and token ID of the NFT to be provided to our guild.</Typography>
       <img alt="g" src={require("../image/nft-info-price.png")} style={{position:"absolute", left:"20px", top:"115px", width:"596px", height:"97px"}}/>
       <img alt="a" src={require("../image/nft-info-table.png")} style={{position:"absolute", left:"15px", top:"210px", width:"603px", height:"256px"}}/>
@@ -69,7 +67,7 @@ const SupplyNFT = () => {
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={disposeNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
       <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 
 		</div>
@@ -78,4 +76,4 @@ const SupplyNFT = () => {
 
 // <Link to={"/Guild/supplyNFT"}>
 
-export default SupplyNFT;
+export default Dispose;

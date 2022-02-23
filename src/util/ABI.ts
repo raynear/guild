@@ -648,8 +648,38 @@ export const Guild_ABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "disposeNFT",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "giveDividend",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"internalType": "string",
-				"name": "_hash",
+				"name": "_content",
 				"type": "string"
 			},
 			{
@@ -660,6 +690,11 @@ export const Guild_ABI = [
 			{
 				"internalType": "uint256",
 				"name": "_NFTId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
 				"type": "uint256"
 			}
 		],
@@ -674,7 +709,27 @@ export const Guild_ABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_hash",
+				"name": "_content",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "proposeDividend",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_content",
 				"type": "string"
 			},
 			{
@@ -685,6 +740,11 @@ export const Guild_ABI = [
 			{
 				"internalType": "uint256",
 				"name": "_NFTId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
 				"type": "uint256"
 			}
 		],
@@ -698,12 +758,52 @@ export const Guild_ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_guildName",
-				"type": "string"
+				"internalType": "address",
+				"name": "_NFTContract",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_NFTId",
+				"type": "uint256"
 			}
 		],
-		"name": "setGuildName",
+		"name": "rentNFT",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_NFTContract",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_NFTId",
+				"type": "uint256"
+			}
+		],
+		"name": "returnNFT",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "supplyNFT",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -754,7 +854,37 @@ export const Guild_ABI = [
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "collection",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "getGuildRevenue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMemberRevenue",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -770,17 +900,17 @@ export const Guild_ABI = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_member",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
 			}
 		],
-		"name": "getMemberRevenue",
+		"name": "getProposal",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -790,7 +920,7 @@ export const Guild_ABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getNFTproposals",
+		"name": "getProposals",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -811,6 +941,47 @@ export const Guild_ABI = [
 				"internalType": "string",
 				"name": "",
 				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_NFTContract",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_NFTId",
+				"type": "uint256"
+			}
+		],
+		"name": "isRentedNFT",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "membership",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"payable": false,

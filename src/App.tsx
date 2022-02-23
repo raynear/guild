@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import MyAccount from './pages/MyAccount';
 import Discover from './pages/Discover';
-import RentNFT from './pages/RentNFT';
+import RentNFTs from './pages/RentNFTs';
 
 import My from './pages/My';
 import GuildList from './pages/GuildList';
@@ -16,7 +16,9 @@ import CreatePoll from './pages/CreatePoll';
 import NFTInfo from './pages/NFTInfo';
 import SupplyNFT from './pages/SupplyNFT';
 import DisposeNFT from './pages/DisposeNFT';
+import ChangeRentCondition from './pages/ChangeRentCondition';
 import Dividend from './pages/Dividend';
+import MyInventory from './pages/MyInventory';
 
 import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
@@ -168,13 +170,15 @@ function App() {
               <Route path="CreatePoll" element={<CreatePoll />} />
               <Route path="SupplyNFT" element={<SupplyNFT />} />
               <Route path="DisposeNFT" element={<DisposeNFT />} />
+              <Route path="ChangeRentCondition" element={<ChangeRentCondition />} />
               <Route path="Dividend" element={<Dividend />} />
               <Route path="Inventory" element={<Inventory />} />
               <Route path="NFTInfo/:nftId" element={<NFTInfo />} />
+              <Route path="MyInventory" element={<MyInventory/>} />
             </Route>
           </Route>
           <Route path="Discover" element={<Discover/>} />
-          <Route path="RentNFT" element={<RentNFT/>} />
+          <Route path="RentNFT" element={<RentNFTs />} />
         </Routes>
         </div>
       </div>

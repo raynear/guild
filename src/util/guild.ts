@@ -36,9 +36,9 @@ export class Guild {
 		return revenue;
 	}
 
-	async getMemberRevenue(account:string) {
+	async getMemberRevenue() {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
-		const revenue = await guild.methods.getMemberRevenue(account).call();
+		const revenue = await guild.methods.getMemberRevenue().call();
 
 		return revenue;
 	}
@@ -51,20 +51,38 @@ export class Guild {
 		guild.methods.setGuildName(name).send({from:account, gas:3000000});
 	}
 
-	async proposeSupplyNFT(hash:string, NFTContract:string, NFTId:number) {
+	async proposeSupplyNFT(NFTContract:string, NFTId:number, price:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.proposeSupplyNFT(hash, NFTContract, NFTId).send({from:account, gas:3000000});
+
+		guild.methods.proposeSupplyNFT("buy", NFTContract, NFTId, price).send({from:account, gas:3000000});
 	}
 
-	async proposeDisposeNFT(hash:string, NFTContract:string, NFTId:number) {
+	async proposeDisposeNFT(NFTContract:string, NFTId:number, price:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.proposeDisposeNFT(hash, NFTContract, NFTId).send({from:account, gas:3000000});
+		guild.methods.proposeDisposeNFT("sell", NFTContract, NFTId, price).send({from:account, gas:3000000});
+	}
+
+	async supplyNFT(NFTContract:string, NFTId:number, price:number) {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		// const account = useRecoilValue(accountState);
+		let account = await window.caver.klay.getAccounts();
+		account = account[0];
+
+		guild.methods.supplyNFT(NFTId).send({from:account, gas:3000000});
+	}
+
+	async disposeNFT(NFTContract:string, NFTId:number, price:number) {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		// const account = useRecoilValue(accountState);
+		let account = await window.caver.klay.getAccounts();
+		account = account[0];
+		guild.methods.disposeNFT(NFTId).send({from:account, gas:3000000});
 	}
 
 	async vote(id:number, votes:boolean) {
@@ -75,16 +93,16 @@ export class Guild {
 		guild.methods.vote(id, votes).send({from:account, gas:3000000});
 	}
 
-	async getNFTProposals() {
+	async getProposals() {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
-		const proposals = await guild.methods.getNFTproposals().call();
+		const proposals = await guild.methods.getProposals().call();
 
 		return proposals;
 	}
 
-	async getNFTProposal(id:number) {
+	async getProposal(id:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
-		const proposal = await guild.methods.proposals(id).call();
+		const proposal = await guild.methods.getProposal(id).call();
 
 		return proposal;
 	}

@@ -9,19 +9,21 @@ import guild from '../util/guild';
 
 
 const PollList = () => {
-	const [proposals, setProposals] = useState([{hash:"", contractAddress:"0x0000000000000000000000000000000000000000", nftId:"0", option:"supply", done:false}]);
+	const [proposals, setProposals] = useState([{id:"0", content:"", nftContract:"0x0000000000000000000000000000000000000000", nftId:"0", price:"0", option:"supply", done:"in progress"}]);
 
 	const location = useLocation();
 	const navigate = useNavigate();
 
 
 	useEffect(() => {
-		// guild.getNFTProposals().then((res:any) => {
-		// 	setProposals(parseProposals(res));
-		// 	});
-		const parsedProposals = parseProposals("16afc96a3d588894e6e01719d2e266e836e389024ef666094304ccf46e3074a3;0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;0;true;false;27d550eafb23b95ed6067beca0d5bcf47da6cd255a1b387f96eadf156b793f21;0x70997970C51812dc3A010C7d01b50e0d17dc79C8;1;false;true");
-		console.log(parsedProposals);
-		setProposals(parsedProposals);
+		guild.getProposals().then((res:any) => {
+			console.log("test", res);
+			if(res !== "")
+				setProposals(parseProposals(res));
+			});
+		// const parsedProposals = parseProposals("16afc96a3d588894e6e01719d2e266e836e389024ef666094304ccf46e3074a3;0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;0;true;false;27d550eafb23b95ed6067beca0d5bcf47da6cd255a1b387f96eadf156b793f21;0x70997970C51812dc3A010C7d01b50e0d17dc79C8;1;false;true");
+		// console.log(parsedProposals);
+		// setProposals(parsedProposals);
 	},[]);
 
 	// "16afc96a3d588894e6e01719d2e266e836e389024ef666094304ccf46e3074a3;0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;0;true;false;27d550eafb23b95ed6067beca0d5bcf47da6cd255a1b387f96eadf156b793f21;0x70997970C51812dc3A010C7d01b50e0d17dc79C8;1;true;false";
@@ -29,18 +31,50 @@ const PollList = () => {
 	function parseProposals(proposals:string) {
 		const ret = [];
 		const tokens = proposals.split(';');
-		for(let i=0 ; i<tokens.length ; i+=5) {
-			const proposal = {
-				id:0,
-				hash:tokens[i],
-				contractAddress:tokens[i+1],
-				nftId:tokens[i+2],
-				option:tokens[i+3]==="true"?"supply":"dispose",
-				done:tokens[i+4]==="true"?true:false
+		console.log(tokens, tokens.length);
+		for(let i=0 ; i<tokens.length-1 ; i+=7) {
+			let option = "";
+			switch(tokens[i+5]) {
+				case "0":
+					option = "supply";
+					break;
+				case "1":
+					option = "dispose";
+					break;
+				case "2":
+					option = "divide";
+					break;
 			}
+
+			let done = "";
+			switch(tokens[i+6]) {
+				case "0":
+					done="in progress";
+					break;
+				case "1":
+					done="approved";
+					break;
+				case "2":
+					done="disapproved";
+					break;
+				case "3":
+					done="terminated";
+					break;
+			}
+
+			const proposal = {
+				id:tokens[i],
+				content:tokens[i+1],
+				nftContract:tokens[i+2],
+				nftId:tokens[i+3],
+				price:tokens[i+4],
+				option:option,
+				done:done
+			};
 			ret.push(proposal);
 		}
 
+		console.log("asdf", ret);
 		return ret;
 	}
 

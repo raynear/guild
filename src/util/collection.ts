@@ -40,11 +40,11 @@ export class Collection {
 		return ret;
 	}
 
-	async getItem(account:string, id:number) {
-		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		const nft = await collection.methods.tokenOfOwnerByIndex(account, id).call();
-
-		return nft;
+	async getItem(address:string, id:number) {
+		const collection = new window.caver.klay.Contract(KIP17_ABI, address);
+		return "";
+		// const nft = await collection.methods.getItem(id).call();
+		// return nft;
 	}
 }
 

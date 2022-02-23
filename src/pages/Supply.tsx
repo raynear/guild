@@ -7,7 +7,7 @@ import collection from '../util/collection';
 import guild from '../util/guild';
 
 
-const SupplyNFT = () => {
+const Supply = () => {
 	const [value, setValue] = useState({contractAddress:"", nftId:0, price:0});
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:""});
 
@@ -21,7 +21,7 @@ const SupplyNFT = () => {
 	}
 
 	const supplyNFT = () => {
-		guild.proposeSupplyNFT(value.contractAddress, value.nftId, value.price);
+		guild.supplyNFT(value.contractAddress, value.nftId, value.price);
 		navigate(-1);
 	}
 
@@ -78,4 +78,4 @@ const SupplyNFT = () => {
 
 // <Link to={"/Guild/supplyNFT"}>
 
-export default SupplyNFT;
+export default Supply;

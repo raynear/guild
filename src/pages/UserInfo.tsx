@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Link, useParams} from 'react-router-dom';
 
 import Typography from '@mui/material/Typography';
 import { Avatar, Grid, Box, Button } from '@mui/material';
@@ -15,7 +16,10 @@ import guild from '../util/guild';
 
 const UserInfo = () => {
 	const [value, setValue] = useState({membershipNFT:0, memberRevenue:0});
+	const [userRevenue, setUserRevenue] = useState(0);
+	const [userMembershipNFTCnt, setUserMembershipNFTCnt] = useState(0);
 	const account = useRecoilValue(accountState);
+	const { id } = useParams();
 	// const [account , b] = useRecoilState(accountState);
 	// const account = '0x0000';
 
@@ -26,12 +30,14 @@ const UserInfo = () => {
 		});
 		membership.getBalance(account).then(result => {
 			console.log("membership balance", result);
-			setValue({memberRevenue:value.memberRevenue, membershipNFT:result});
+			// setValue({memberRevenue:value.memberRevenue, membershipNFT:result});
+			setUserMembershipNFTCnt(result);
 		});
 
-		guild.getMemberRevenue(account).then(result => {
+		guild.getMemberRevenue().then(result => {
 			console.log("member revenue", result);
-			setValue({memberRevenue:result, membershipNFT:value.membershipNFT});
+			// setValue({memberRevenue:result, membershipNFT:value.membershipNFT});
+			setUserRevenue(result);
 		});
 
 		// window.caver.klay.getAccounts().then((accounts:any) => {
@@ -50,9 +56,9 @@ const UserInfo = () => {
 	return (
 	<div style={{position:"absolute", zIndex:"4"}}>
 		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"155px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
-		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"285px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{value.membershipNFT}</Typography>
-		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"395px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{value.memberRevenue}</Typography>
-		<Button style={{position:"absolute", left:"6px", top:"440px"}}><img alt="logout" style={{width:"306px", height:"44px"}} src={require('../image/red-button-on.png')}/></Button>
+		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"285px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{userMembershipNFTCnt}</Typography>
+		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"395px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{userRevenue}</Typography>
+		{id===undefined?<></>:<Link to={"/Guild/"+id+"/MyInventory"} style={{position:"absolute", left:"13px", top:"440px", width:"306px", height:"44px"}}><img alt="my inventory" style={{width:"306px", height:"44px"}} src={require('../image/my-inventory.png')}/></Link>}
 	</div>
 	);
 };

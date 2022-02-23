@@ -7,17 +7,68 @@ import guild from '../util/guild';
 
 
 const Poll = (props:any) => {
-	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:"", contractAddress:"", tokenId:"", option:"supply"});
+	const dummy = {id:"0", content:"", nftContract:"0x0000000000000000000000000000000000000000", nftId:"0", price:"0", option:"supply", done:"in progress"};
+	const [NFTInfo, setNFTInfo] = useState(dummy);
 	const navigate = useNavigate();
 
 	const { pollId } = useParams();
 
 	useEffect(() => {
-		// guild.getProposal(props.id).then(res => {
-		// 	setNFTInfo(res);
-		// });
-		setNFTInfo({name:"Sword", symbol:"DHEIF", contractAddress:"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", tokenId:"23", option:"supply"});
+		guild.getProposal(parseInt(pollId===undefined?"0":pollId)).then(res => {
+			console.log(res);
+			const proposal = parseProposals(res);
+			setNFTInfo(proposal===undefined?dummy:proposal);
+		});
+		// setNFTInfo({name:"Sword", symbol:"DWRF", contractAddress:"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", tokenId:"23", option:"supply"});
 	},[]);
+
+	function parseProposals(proposals:string) {
+		const tokens = proposals.split(';');
+		console.log(tokens, tokens.length);
+		for(let i=0 ; i<tokens.length-1 ; i+=7) {
+			let option = "";
+			switch(tokens[i+5]) {
+				case "0":
+					option = "supply";
+					break;
+				case "1":
+					option = "dispose";
+					break;
+				case "2":
+					option = "divide";
+					break;
+			}
+
+			let done = "";
+			switch(tokens[i+6]) {
+				case "0":
+					done="in progress";
+					break;
+				case "1":
+					done="approved";
+					break;
+				case "2":
+					done="disapproved";
+					break;
+				case "3":
+					done="terminated";
+					break;
+			}
+
+			const proposal = {
+				id:tokens[i],
+				content:tokens[i+1],
+				nftContract:tokens[i+2],
+				nftId:tokens[i+3],
+				price:tokens[i+4],
+				option:option,
+				done:done
+			};
+			return proposal;
+		}
+	}
+
+
 
 	const goBack = () => {
 		navigate(-1);
@@ -40,11 +91,11 @@ const Poll = (props:any) => {
       <img alt="g" src={require("../image/nft-info.png")} style={{position:"absolute", left:"20px", top:"130px", width:"596px", height:"67px"}}/>
       <img alt="a" src={require("../image/nft-info-table.png")} style={{position:"absolute", left:"15px", top:"210px", width:"603px", height:"256px"}}/>
 
-      <Typography variant="body1" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#000", position:"absolute", left:"160px", top:"133px"}}>{NFTInfo.contractAddress}</Typography>
-      <Typography variant="body1" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#000", position:"absolute", left:"160px", top:"170px"}}>{NFTInfo.tokenId}</Typography>
+      <Typography variant="body1" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#000", position:"absolute", left:"160px", top:"133px"}}>{NFTInfo.nftContract}</Typography>
+      <Typography variant="body1" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#000", position:"absolute", left:"160px", top:"170px"}}>{NFTInfo.nftId}</Typography>
 
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"230px"}}>{NFTInfo.name}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{NFTInfo.symbol}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"230px"}}>{NFTInfo.content}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{NFTInfo.price}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}>5</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}>2</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}>385,194</Typography>
