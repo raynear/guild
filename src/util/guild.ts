@@ -63,11 +63,19 @@ export class Guild {
 	}
 
 	async rentNFT(NFTContract:string, nftId:number) {
-		return "";
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		// const account = useRecoilValue(accountState);
+		let account = await window.caver.klay.getAccounts();
+		account = account[0];
+		guild.methods.rentNFT(NFTContract, nftId).send({from:account, gas:3000000, value:window.caver.utils.toPeb(1)});
 	}
 
 	async returnNFT(NFTContract:string, nftId:number) {
-		return "";
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		// const account = useRecoilValue(accountState);
+		let account = await window.caver.klay.getAccounts();
+		account = account[0];
+		guild.methods.disposeNFT(NFTContract, nftId).send({from:account, gas:3000000, value:window.caver.utils.toPeb(1)});
 	}
 
 	async proposeDisposeNFT(NFTContract:string, NFTId:number, price:number) {

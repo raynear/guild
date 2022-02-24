@@ -89,10 +89,11 @@ const Supply = () => {
 		return await collection.ownerOf(account, parseInt(NFTInfo.nftId));
 	}
 
-	function bringNFTInfo() {
-		if(NFTInfo.nftContract!== "") {
-			collection.getItem(NFTInfo.nftContract, parseInt(NFTInfo.nftId)).then((data) => {
-				console.log(data);
+	function bringNFTInfo(contractAddress:string, nftId:string) {
+		if(contractAddress !== "" && nftId !== "") {
+			collection.getItem(contractAddress, parseInt(nftId)).then((data) => {
+				const nftInfo = JSON.parse(data.replaceAll("'", '"'));
+				setNFTInfo(nftInfo);
 			});
 		}
 	}
@@ -112,19 +113,25 @@ const Supply = () => {
       <img alt="g" src={require("../image/nft-info-price.png")} style={{position:"absolute", left:"20px", top:"115px", width:"596px", height:"97px"}}/>
       <img alt="a" src={require("../image/nft-info-table.png")} style={{position:"absolute", left:"15px", top:"210px", width:"603px", height:"256px"}}/>
 
-			<Typography style={{position:"absolute", left:"160px", top:"115px", width:"465px", height:"21px"}}>{NFTInfo.price}</Typography>
+			<Typography style={{position:"absolute", left:"160px", top:"115px", width:"465px", height:"21px"}}>{window.caver.utils.fromPeb(NFTInfo.price, 'KLAY')}</Typography>
 			<Typography style={{position:"absolute", left:"160px", top:"150px", width:"465px", height:"21px"}}>{NFTInfo.nftContract}</Typography>
 			<Typography style={{position:"absolute", left:"160px", top:"183px", width:"465px", height:"21px"}}>{NFTInfo.nftId}</Typography>
 
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"230px"}}>CONTENT</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"277px"}}>PRICE</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"324px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"370px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"415px"}}></Typography>
+
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"230px"}}>{NFTInfo.content}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{NFTInfo.price}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}>5</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}>2</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}>385,194</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{window.caver.utils.fromPeb(NFTInfo.price, 'KLAY')}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}></Typography>
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      {owner?<div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>:<></>}
+      {owner?<div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/supply-button.png")} style={{width:"262px", height:"39px"}}/></div>:<></>}
       <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 
 		</div>

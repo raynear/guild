@@ -58,16 +58,8 @@ const Guild = (props:any) => {
 		navigate(-1);
 	}
 
-	const supplyNFT = () => {
-	}
+	async function dividend() {
 
-	const disposeNFT = () => {
-	}
-
-	const changeRentCondition = () => {
-	}
-
-	const dividend = () => {
 	}
 
   return (
@@ -90,10 +82,9 @@ const Guild = (props:any) => {
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"365px", top:"137px"}}>{guildRevenue}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"525px", top:"137px"}}>{userRevenue}</Typography>
 
-			<Link to={"/Guild/"+id+"/supplyNFT"}><div style={{position:"absolute", left:"40px", top:"310px", width:"555px", height:"58px"}} onClick={supplyNFT}/></Link>
-			<Link to={"/Guild/"+id+"/disposeNFT"}><div style={{position:"absolute", left:"40px", top:"367px", width:"555px", height:"58px"}} onClick={disposeNFT}/></Link>
-			<Link to={"/Guild/"+id+"/changeRentCondition"}><div style={{position:"absolute", left:"40px", top:"424px", width:"555px", height:"58px"}} onClick={changeRentCondition}/></Link>
-			<Link to={"/Guild/"+id+"/dividend"}><div style={{position:"absolute", left:"40px", top:"480px", width:"555px", height:"58px"}} onClick={dividend}/></Link>
+			<Link to={"/Guild/"+id+"/supplyNFT"}><div style={{position:"absolute", left:"40px", top:"310px", width:"555px", height:"78px"}}/></Link>
+			<Link to={"/Guild/"+id+"/disposeNFT"}><div style={{position:"absolute", left:"40px", top:"387px", width:"555px", height:"78px"}}/></Link>
+			<div style={{position:"absolute", left:"40px", top:"464px", width:"555px", height:"78px"}} onClick={dividend}/>
 		</div>
     );
 };

@@ -8,7 +8,7 @@ import guild from '../util/guild';
 
 
 const DisposeNFT = () => {
-	const [value, setValue] = useState({contractAddress:"", nftId:0, price:0});
+	const [value, setValue] = useState({contractAddress:"", nftId:"0", price:0});
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:""});
 
 	const navigate = useNavigate();
@@ -21,26 +21,28 @@ const DisposeNFT = () => {
 	}
 
 	const disposeNFT = () => {
-		guild.proposeDisposeNFT(value.contractAddress, value.nftId, value.price);
+		guild.proposeDisposeNFT(value.contractAddress, parseInt(value.nftId), window.caver.utils.toPeb(value.price));
 		navigate(-1);
 	}
 
-	function bringNFTInfo() {
-		if(value.contractAddress !== "") {
-			collection.getItem(value.contractAddress, value.nftId).then((data) => {
-				console.log(data);
+	function bringNFTInfo(contractAddress:string, nftId:string) {
+		if(contractAddress !== "" && nftId !== "") {
+			collection.getItem(contractAddress, parseInt(nftId)).then((data) => {
+				const nftInfo = JSON.parse(data.replaceAll("'", '"'));
+				setNFTInfo(nftInfo);
 			});
 		}
 	}
 
 	const handleAddress = (e:any) => {
 		setValue({...value, contractAddress:e.target.value});
-		bringNFTInfo();
+		bringNFTInfo(e.target.value, value.nftId);
 	}
 
 	const handleNFTId = (e:any) => {
+		console.log(e);
 		setValue({...value, nftId:e.target.value});
-		bringNFTInfo();
+		bringNFTInfo(value.contractAddress, e.target.value);
 	}
 
 	const handlePrice = (e:any) => {
@@ -59,11 +61,18 @@ const DisposeNFT = () => {
 			<input style={{position:"absolute", left:"145px", top:"150px", width:"465px", height:"21px"}} color="secondary" onChange={handleAddress}/>
 			<input style={{position:"absolute", left:"145px", top:"183px", width:"465px", height:"21px"}} color="secondary" onChange={handleNFTId}/>
 
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"230px"}}>NAME</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"277px"}}>SYMBOL</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"324px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"370px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"415px"}}></Typography>
+
+
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"230px"}}>{NFTInfo.name}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{NFTInfo.symbol}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}>5</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}>2</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}>385,194</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}></Typography>
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 

@@ -12,14 +12,12 @@ import Guild from './pages/Guild';
 import Inventory from './pages/Inventory';
 import Poll from './pages/Poll';
 import PollList from './pages/PollList';
-import CreatePoll from './pages/CreatePoll';
 import NFTInfo from './pages/NFTInfo';
 import Supply from './pages/Supply';
 import Dispose from './pages/Dispose';
 import SupplyNFT from './pages/SupplyNFT';
 import DisposeNFT from './pages/DisposeNFT';
 import ChangeRentCondition from './pages/ChangeRentCondition';
-import Dividend from './pages/Dividend';
 import MyInventory from './pages/MyInventory';
 import AboutAndRules from './pages/AboutAndRules';
 import RentNFT from './pages/RentNFT';
@@ -173,13 +171,11 @@ function App() {
               <Route path="AboutAndRules" element={<AboutAndRules />} />
               <Route path="Poll/:pollId" element={<Poll />} />
               <Route path="PollList" element={<PollList />} />
-              <Route path="CreatePoll" element={<CreatePoll />} />
               <Route path="Supply/:pollId" element={<Supply/>} />
               <Route path="Dispose/:pollId" element={<Dispose/>} />
               <Route path="SupplyNFT" element={<SupplyNFT />} />
               <Route path="DisposeNFT" element={<DisposeNFT />} />
               <Route path="ChangeRentCondition" element={<ChangeRentCondition />} />
-              <Route path="Dividend" element={<Dividend />} />
               <Route path="Inventory" element={<Inventory />} />
               <Route path="NFTInfo/:nftId" element={<NFTInfo />} />
               <Route path="MyInventory" element={<MyInventory/>} />

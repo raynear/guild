@@ -31,7 +31,6 @@ const RentNFTs = () => {
 			}
 			setItems(is);
 		});
-
 	},[]);
 
 	const goBack = () => {

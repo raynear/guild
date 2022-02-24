@@ -31,7 +31,6 @@ const AboutAndRules = () => {
 		<div style={{overflow:"scroll", position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"570px"}}>
       <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
 			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"About And Rules"}</Typography>
-			<div style={{overflow:"scroll", width:"500px", height:"400px"}}>
 				<Typography variant="h6" style={{position:"absolute", left:"30px", top:"100px", width:"600px"}}>
 					Here in Red Eagles, our primary rule is that we want everyone to have fun and enjoy themselves while playing the game. As such, our cardinal rules concern behavior, first and foremost. Violating these rules will prompt a discussion with an officer; repeated violations can lead to removal from the guild.
 					<br/>
@@ -46,7 +45,6 @@ const AboutAndRules = () => {
 					All players are expected to treat officers and other guild members with respect and politeness.
 					These rules are simply guidelines; it's possible that situations may develop in play which require more specific rules. In the event that an officer makes a rule for a time that's more restrictive than these rules, go by that rule until further notice; if we expect the rule to be in place for an extended period of time, we'll add it in here.
 				</Typography>
-			</div>
 		</div>
     );
 };

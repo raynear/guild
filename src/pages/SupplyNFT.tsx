@@ -8,7 +8,7 @@ import guild from '../util/guild';
 
 
 const SupplyNFT = () => {
-	const [value, setValue] = useState({contractAddress:"", nftId:0, price:0});
+	const [value, setValue] = useState({contractAddress:"", nftId:"0", price:0});
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:"", value:""});
 
 	const navigate = useNavigate();
@@ -22,26 +22,29 @@ const SupplyNFT = () => {
 
 	const supplyNFT = async () => {
 		console.log('aaaaaaaaaaaaaaaaa');
-		guild.proposeSupplyNFT(value.contractAddress, value.nftId, value.price);
+		guild.proposeSupplyNFT(value.contractAddress, parseInt(value.nftId), value.price);
 		navigate(-1);
 	}
 
 
-	async function bringNFTInfo() {
-		// collection.getItem(value.contractAddress, value.nftId).then((data) => {
-		// 	const nftInfo = JSON.parse(data.replaceAll("'", "\""));
-		// 	setNFTInfo(nftInfo)
-		// });
+	function bringNFTInfo(contractAddress:string, nftId:string) {
+		if(contractAddress !== "" && nftId !== "") {
+			collection.getItem(contractAddress, parseInt(nftId)).then((data) => {
+				const nftInfo = JSON.parse(data.replaceAll("'", '"'));
+				setNFTInfo(nftInfo);
+			});
+		}
 	}
+
 
 	const handleAddress = (e:any) => {
 		setValue({...value, contractAddress:e.target.value});
-		bringNFTInfo();
+		bringNFTInfo(e.target.value, value.nftId);
 	}
 
 	const handleNFTId = (e:any) => {
 		setValue({...value, nftId:e.target.value});
-		bringNFTInfo();
+		bringNFTInfo(value.contractAddress, e.target.value);
 	}
 
 	const handlePrice = (e:any) => {
@@ -59,6 +62,12 @@ const SupplyNFT = () => {
 			<input style={{position:"absolute", left:"145px", top:"115px", width:"465px", height:"21px"}} color="secondary" onChange={handlePrice}/>
 			<input style={{position:"absolute", left:"145px", top:"150px", width:"465px", height:"21px"}} color="secondary" onChange={handleAddress}/>
 			<input style={{position:"absolute", left:"145px", top:"183px", width:"465px", height:"21px"}} color="secondary" onChange={handleNFTId}/>
+
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"230px"}}>NAME</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"277px"}}>SYMBOL</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"324px"}}>VALUE</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"370px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"415px"}}></Typography>
 
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"230px"}}>{NFTInfo.name}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{NFTInfo.symbol}</Typography>
