@@ -20,7 +20,7 @@ const DisposeNFT = () => {
 		navigate(-1);
 	}
 
-	const disposeNFT = () => {
+	const disposeNFT = async () => {
 		guild.proposeDisposeNFT(value.contractAddress, parseInt(value.nftId), window.caver.utils.toPeb(value.price));
 		navigate(-1);
 	}

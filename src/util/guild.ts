@@ -59,7 +59,7 @@ export class Guild {
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
 
-		guild.methods.proposeSupplyNFT("buy", NFTContract, NFTId, window.caver.utils.toPeb(price)).send({from:account, gas:3000000});
+		guild.methods.proposeSupplyNFT("Buy", NFTContract, NFTId, window.caver.utils.toPeb(price)).send({from:account, gas:3000000});
 	}
 
 	async rentNFT(NFTContract:string, nftId:number) {
@@ -83,24 +83,24 @@ export class Guild {
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.proposeDisposeNFT("sell", NFTContract, NFTId, price).send({from:account, gas:3000000});
+		guild.methods.proposeDisposeNFT("Sell", NFTContract, NFTId, price).send({from:account, gas:3000000});
 	}
 
-	async supplyNFT(NFTContract:string, NFTId:number) {
+	async supplyNFT(proposalId:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
 
-		guild.methods.supplyNFT(NFTId).send({from:account, gas:3000000});
+		guild.methods.supplyNFT(proposalId).send({from:account, gas:3000000});
 	}
 
-	async disposeNFT(NFTContract:string, NFTId:number) {
+	async disposeNFT(proposalId:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.disposeNFT(NFTId).send({from:account, gas:3000000});
+		guild.methods.disposeNFT(proposalId).send({from:account, gas:3000000});
 	}
 
 	async vote(id:number, votes:boolean) {

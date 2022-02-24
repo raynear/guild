@@ -80,8 +80,9 @@ const Supply = () => {
 	}
 
 	const supplyNFT = async () => {
+		const pid = pollId===undefined?0:parseInt(pollId);
 		await collection.approve(account, id===undefined?"":id, parseInt(NFTInfo.nftId));
-		await guild.supplyNFT(NFTInfo.nftContract, parseInt(NFTInfo.nftId));
+		await guild.supplyNFT(pid);
 		navigate(-1);
 	}
 

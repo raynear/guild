@@ -3,8 +3,12 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
+import {useRecoilValue} from 'recoil';
+import {accountState} from '../recoil/atoms';
+
 import collection from '../util/collection';
 import guild from '../util/guild';
+import token from '../util/token';
 
 
 const Dispose = () => {
@@ -12,6 +16,7 @@ const Dispose = () => {
 	const [value, setValue] = useState({contractAddress:"", nftId:"0", price:0});
 	const [NFTInfo, setNFTInfo] = useState(dummy);
 
+	const account = useRecoilValue(accountState);
 	const navigate = useNavigate();
 
 	const {id, pollId} = useParams();
@@ -74,8 +79,10 @@ const Dispose = () => {
 		navigate(-1);
 	}
 
-	const disposeNFT = () => {
-		guild.disposeNFT(value.contractAddress, parseInt(value.nftId));
+	const disposeNFT = async () => {
+		const id=pollId===undefined?0:parseInt(pollId);
+		await token.approve(account, guild.address, window.caver.utils.toPeb(1));
+		await guild.disposeNFT(id);
 		navigate(-1);
 	}
 
