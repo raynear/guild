@@ -21,7 +21,7 @@ const MyInventory = () => {
 
 	useEffect(() => {
 		guild.getRentedNFTs(account).then((data) => {
-			console.log(data);
+			setItems(data);
 		});
 	},[]);
 

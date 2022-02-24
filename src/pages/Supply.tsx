@@ -80,8 +80,8 @@ const Supply = () => {
 	}
 
 	const supplyNFT = async () => {
-		await collection.approve(id===undefined?"":id, parseInt(NFTInfo.nftId));
-		await guild.supplyNFT(NFTInfo.nftContract, parseInt(NFTInfo.nftId), parseInt(NFTInfo.price));
+		await collection.approve(account, id===undefined?"":id, parseInt(NFTInfo.nftId));
+		await guild.supplyNFT(NFTInfo.nftContract, parseInt(NFTInfo.nftId));
 		navigate(-1);
 	}
 

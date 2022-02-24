@@ -10,7 +10,7 @@ import collection from '../util/collection';
 import guild from '../util/guild';
 
 
-const RentNFT = () => {
+const ReturnNFT = () => {
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:"", price:"0"});
 
 	const navigate = useNavigate();
@@ -30,9 +30,9 @@ const RentNFT = () => {
 		navigate(-1);
 	}
 
-	const rentNFT = () => {
+	const returnNFT = () => {
 		const id = nftId===undefined?0:parseInt(nftId);
-		guild.rentNFT(config.CollectionNFTAddress, id);
+		guild.returnNFT(config.CollectionNFTAddress, id);
 		navigate(-1);
 	}
 
@@ -42,7 +42,7 @@ const RentNFT = () => {
 			<Tabs selected={3}/>
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"570px"}}>
       <div onClick={goBack}><img alt="g1" src={require("../image/back-button.png")} style={{position:"absolute", left:"20px", top:"15px", width:"157px", height:"21px"}}/></div>
-			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Rent NFT"}</Typography>
+			<Typography variant="h4" style={{position:"absolute", left:"30px", top:"45px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{"Return NFT"}</Typography>
 			<Typography variant="subtitle1" style={{position:"absolute", left:"25px", top:"85px", color:"#bcdeef"}}>Enter the contract address and token ID of the NFT to be provided to our guild.</Typography>
       <img alt="g" src={require("../image/nft-info-price.png")} style={{position:"absolute", left:"20px", top:"115px", width:"596px", height:"97px"}}/>
       <img alt="a" src={require("../image/nft-info-table.png")} style={{position:"absolute", left:"15px", top:"210px", width:"603px", height:"256px"}}/>
@@ -59,7 +59,7 @@ const RentNFT = () => {
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      <div onClick={rentNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={returnNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
       <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 		</div>
 		</div>
@@ -68,4 +68,4 @@ const RentNFT = () => {
 
 // <Link to={"/Guild/supplyNFT"}>
 
-export default RentNFT;
+export default ReturnNFT;

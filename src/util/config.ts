@@ -1,7 +1,7 @@
 const config = {
-	MembershipNFTAddress:"0xA221DD71d38c0d5edC010B2eE08d33E4B4b59000",
-	CollectionNFTAddress:"0xd47B9938f78cB412A4Ed9537e86ee6767d10365C",
-	GuildContractAddress:"0x86cCA33732e873aD37629bBe52279b14679D3f12"
+	MembershipNFTAddress:"0x8c617A1CebD3B3aCE4251D88A8B7375A3D59288D",
+	CollectionNFTAddress:"0x6DD5B720b51a17fdD1ab2d74e1dD0937D14a01fc",
+	GuildContractAddress:"0xA4BB2962573fE920bFF847588a5AeFB8Ee07145c"
 };
 
 export default config;

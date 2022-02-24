@@ -77,7 +77,7 @@ const Guild = (props:any) => {
 			<Typography variant="caption" style={{position:"absolute", right:"30px", top:"75px", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#000"}}>{"MY MEMBERSHIP NFTs : "+userMembershipNFTCnt}</Typography>
       <img alt="g" src={require("../image/green-rectangle.png")} style={{position:"absolute", left:"500px", top:"50px", width:"110px", height:"21px"}}/>
       <img alt="a" src={require("../image/guild-info-bg.png")} style={{position:"absolute", left:"28px", top:"110px", width:"585px", height:"61px"}}/>
-      <img alt="b" src={require("../image/about-rules-button.png")} style={{position:"absolute", left:"28px", top:"190px", width:"188px", height:"48px"}}/>
+      <Link to={"/Guild/"+id+"/AboutAndRules"}><img alt="b" src={require("../image/about-rules-button.png")} style={{position:"absolute", left:"28px", top:"190px", width:"188px", height:"48px"}}/></Link>
       <Link to={"/Guild/"+id+"/Inventory"}><img alt="c" src={require("../image/inventory-button.png")} style={{position:"absolute", left:"230px", top:"190px", width:"188px", height:"48px"}}/></Link>
       <Link to={"/Guild/"+id+"/PollList"}><img alt="d" src={require("../image/poll-button.png")} style={{position:"absolute", left:"430px", top:"190px", width:"188px", height:"48px"}}/></Link>
       <img alt="e" src={require("../image/divide-line.png")} style={{position:"absolute", left:"35px", top:"250px", width:"572px", height:"21px"}}/>

@@ -18,9 +18,8 @@ const PollList = () => {
 	useEffect(() => {
 		guild.getProposals().then((res:any) => {
 			console.log("test", res);
-			if(res !== "")
-				setProposals(parseProposals(res));
-			});
+			setProposals(parseProposals(res));
+		});
 		// const parsedProposals = parseProposals("16afc96a3d588894e6e01719d2e266e836e389024ef666094304ccf46e3074a3;0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;0;true;false;27d550eafb23b95ed6067beca0d5bcf47da6cd255a1b387f96eadf156b793f21;0x70997970C51812dc3A010C7d01b50e0d17dc79C8;1;false;true");
 		// console.log(parsedProposals);
 		// setProposals(parsedProposals);

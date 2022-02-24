@@ -17,6 +17,8 @@ const GuildList = () => {
 		guild.setGuildName('Wiggler');
 	}
 
+	// <Button onClick={aa}><img alt="logout" style={{width:"177px", height:"45.8px"}} src={require('../image/action-button-on.png')}/></Button>
+
   return (
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"500px"}}>
 			<Box sx={{m:2, p:1}}>
@@ -25,7 +27,7 @@ const GuildList = () => {
 						<Typography variant="h4" style={{textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>My Guilds</Typography>
 					</Grid>
 					<Grid container item justifyContent="flex-end" xs={6}>
-						<Button onClick={aa}><img alt="logout" style={{width:"177px", height:"45.8px"}} src={require('../image/action-button-on.png')}/></Button>
+						<></>
 					</Grid>
 				</Grid>
 			</Box>

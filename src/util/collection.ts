@@ -34,29 +34,47 @@ export class Collection {
 		const ret = [];
 		for(let i=0; i<balance; i++) {
 			const nft = await collection.methods.tokenOfOwnerByIndex(account, i).call();
+			console.log("nft", nft);
+			const uri = await collection.methods.tokenURI(nft).call();
+			console.log("uri", uri);
 			ret.push(nft);
 		}
 
 		return ret;
 	}
 
-	async approve(address:string, nftId:number) {
+	async hasMethod(contractAddress:string, signature:string) {
+		const code = await window.caver.klay.getCode(contractAddress);
+		const functionSignature = window.caver.klay.abi.encodeFunctionSignature(signature);
+		// remove "0x" prefixed in 0x<4bytes-selector>
+		return code.indexOf(functionSignature.slice(2, 34)) > 0;
+	}
+
+	async getItem(address:string, id:number) {
+		const collection = new window.caver.klay.Contract(KIP17_ABI, address);
+		// const nftId = await collection.methods.tokenOfOwnerByIndex(address, id).call();
+		// const exist = await this.hasMethod(address, 'tokenURI(uint256)');
+		// console.log(exist);
+		// if(exist) {
+			const nftInfo = await collection.methods.tokenURI(id).call();
+			console.log("nftInfo", nftInfo);
+			return nftInfo;
+		// }
+		// else {
+		// 	return {};
+		// }
+		// const nft = await collection.methods.getItem(id).call();
+		// return nft;
+	}
+
+	async approve(sender:string, address:string, nftId:number) {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		collection.methods.approve(address, nftId).send({from:address, gas:3000000});
+		collection.methods.approve(address, nftId).send({from:sender, gas:3000000});
 	}
 
 	async ownerOf(address:string, nftId:number) {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
 		return collection.methods.ownerOf(nftId).call();
-	}
-
-	async getItem(address:string, id:number) {
-		const collection = new window.caver.klay.Contract(KIP17_ABI, address);
-		const nftId = await collection.methods.tokenOfOwnerByIndex(address, id).call();
-		const nftInfo = await collection.methods.getItem(nftId).call();
-		return nftInfo;
-		// const nft = await collection.methods.getItem(id).call();
-		// return nft;
 	}
 }
 

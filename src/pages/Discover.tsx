@@ -12,7 +12,6 @@ const Discover = () => {
     return (
 			<div style={{position:"absolute"}}>
 				<Tabs selected={2}/>
-				<h2>Discover</h2>
 			</div>
     );
 };

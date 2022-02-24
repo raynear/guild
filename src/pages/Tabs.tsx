@@ -17,18 +17,18 @@ const Tabs = (props:any) => {
 	}
 
 	const click3 = () => {
-		navigate('/RentNFT');
+		navigate('/RentNFTs');
 	}
 
     return (
 		<div>
 			<img alt="myAccount" src={require('../image/tab-1-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
-			<img alt="discover" src={require('../image/tab-2-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
+			<img alt="discover" src={require('../image/Discover-dummy.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
 			<img alt="rent" src={require('../image/tab-3-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"1"}}/>
 				{props.selected===1?
 					<img alt="myAccount" src={require('../image/tab-1-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>:
 				props.selected===2?
-					<img alt="discover" src={require('../image/tab-2-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>:
+					<img alt="discover" src={require('../image/Discover-dummy.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>:
 					<img alt="rent" src={require('../image/tab-3-3.png')} style={{width:"978px", height:"690px", position:"absolute", zIndex:"2"}}/>
 				}
 				<div style={{position:"absolute", left:"0px", top:"0px", width:"326px", height:"100px", zIndex:"3"}} onClick={click1}>

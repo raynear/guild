@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router-dom";
 
 import {Card, CardContent, Grid, Typography} from '@mui/material';
 
-import guild from '../util/guild';
+import {Guild} from '../util/guild';
 import collection from '../util/collection';
 import membership from '../util/membership';
 
@@ -36,6 +36,7 @@ const GuildCard = (props:any) => {
   },[])
 
 	async function load() {
+    const guild = new Guild(props.address);
 		let result = await guild.getGuildName();//.then((result:any) => setName(result));
 		setName(result);
     result = await guild.getGuildRevenue();//.then((result:any) => setGuildInfo({...guildInfo, GuildRevenue:result}));

@@ -9,7 +9,7 @@ import guild from '../util/guild';
 
 const SupplyNFT = () => {
 	const [value, setValue] = useState({contractAddress:"", nftId:0, price:0});
-	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:""});
+	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:"", value:""});
 
 	const navigate = useNavigate();
 
@@ -20,20 +20,19 @@ const SupplyNFT = () => {
 		navigate(-1);
 	}
 
-	const supplyNFT = () => {
+	const supplyNFT = async () => {
+		console.log('aaaaaaaaaaaaaaaaa');
 		guild.proposeSupplyNFT(value.contractAddress, value.nftId, value.price);
 		navigate(-1);
 	}
 
 
-	function bringNFTInfo() {
-		if(value.contractAddress !== "") {
-			collection.getItem(value.contractAddress, value.nftId).then((data) => {
-				console.log(data);
-			});
-		}
+	async function bringNFTInfo() {
+		// collection.getItem(value.contractAddress, value.nftId).then((data) => {
+		// 	const nftInfo = JSON.parse(data.replaceAll("'", "\""));
+		// 	setNFTInfo(nftInfo)
+		// });
 	}
-
 
 	const handleAddress = (e:any) => {
 		setValue({...value, contractAddress:e.target.value});
@@ -63,14 +62,14 @@ const SupplyNFT = () => {
 
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"230px"}}>{NFTInfo.name}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"277px"}}>{NFTInfo.symbol}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}>5</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}>2</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}>385,194</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"324px"}}>{NFTInfo.value}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"370px"}}></Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", right:"50px", top:"415px"}}></Typography>
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
-      <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px", zIndex:5}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px", zIndex:4}}/></div>
+      <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px", zIndex:5}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 
 		</div>
     );

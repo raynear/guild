@@ -21,6 +21,8 @@ import DisposeNFT from './pages/DisposeNFT';
 import ChangeRentCondition from './pages/ChangeRentCondition';
 import Dividend from './pages/Dividend';
 import MyInventory from './pages/MyInventory';
+import AboutAndRules from './pages/AboutAndRules';
+import RentNFT from './pages/RentNFT';
 
 import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
@@ -70,13 +72,11 @@ function App() {
         console.log("isUnlocked: ", unlocked);
         setIsEnabled(unlocked);
       });
-    } else {
-      window.klaytn.enable(false);
-    }
-    if(window.klaytn.networkVersion !== 1001) {
-        console.log("network version incorrect", window.klaytn.networkVersion);
-        // setCorrectNetwork(false);
-        setCorrectNetwork(true);
+      if(window.klaytn.networkVersion !== 1001) {
+          console.log("network version incorrect", window.klaytn.networkVersion);
+          // setCorrectNetwork(false);
+          setCorrectNetwork(true);
+      }
     }
   },[setAccount]);
 
@@ -170,6 +170,7 @@ function App() {
             <Route index element={<GuildList />} />
             <Route path="Guild/:id" element={<My />}>
               <Route index element={<Guild />} />
+              <Route path="AboutAndRules" element={<AboutAndRules />} />
               <Route path="Poll/:pollId" element={<Poll />} />
               <Route path="PollList" element={<PollList />} />
               <Route path="CreatePoll" element={<CreatePoll />} />
@@ -185,7 +186,8 @@ function App() {
             </Route>
           </Route>
           <Route path="Discover" element={<Discover/>} />
-          <Route path="RentNFT" element={<RentNFTs />} />
+          <Route path="RentNFTs" element={<RentNFTs />} />
+          <Route path="RentNFT/:nftId" element={<RentNFT />} />
         </Routes>
         </div>
       </div>

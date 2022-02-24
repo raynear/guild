@@ -59,7 +59,15 @@ export class Guild {
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
 
-		guild.methods.proposeSupplyNFT("buy", NFTContract, NFTId, price).send({from:account, gas:3000000});
+		guild.methods.proposeSupplyNFT("buy", NFTContract, NFTId, window.caver.utils.toPeb(price)).send({from:account, gas:3000000});
+	}
+
+	async rentNFT(NFTContract:string, nftId:number) {
+		return "";
+	}
+
+	async returnNFT(NFTContract:string, nftId:number) {
+		return "";
 	}
 
 	async proposeDisposeNFT(NFTContract:string, NFTId:number, price:number) {
@@ -70,7 +78,7 @@ export class Guild {
 		guild.methods.proposeDisposeNFT("sell", NFTContract, NFTId, price).send({from:account, gas:3000000});
 	}
 
-	async supplyNFT(NFTContract:string, NFTId:number, price:number) {
+	async supplyNFT(NFTContract:string, NFTId:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
@@ -79,7 +87,7 @@ export class Guild {
 		guild.methods.supplyNFT(NFTId).send({from:account, gas:3000000});
 	}
 
-	async disposeNFT(NFTContract:string, NFTId:number, price:number) {
+	async disposeNFT(NFTContract:string, NFTId:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
@@ -123,31 +131,40 @@ export class Guild {
 		return collection;
 	}
 
+	async isRentedNFT(NFTContract:string, NFTId:number) {
+		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
+		return guild.methods.isRentedNFT(NFTContract, NFTId).call();
+	}
+
 	async getRentedNFTs(account:string) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
-		const balance = await collection.getBalance(account);
-		const items = [];
-		for(let i=0 ; i<balance ; i++) {
-			const item = await collection.getItem(account, i);
-			const res = await guild.isRentedNFT(config.CollectionNFTAddress, item).call();
+		const items = await collection.getItems(account);
+		const ret = [];
+		console.log(items);
+		for(let item of items) {
+			const res = await guild.methods.isRentedNFT(config.CollectionNFTAddress, item).call();
+			console.log(res);
 			if(res) {
-				items.push(item);
+				ret.push(item);
 			}
 		}
 
-		return items;
+		return ret;
 	}
 
 	async getRentableNFTs() {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
-		const balance = await collection.getBalance(this.address);
-		const items = [];
-		for(let i=0 ; i<balance ; i++) {
-			const item = await collection.getItem(this.address, i);
-			items.push(item);
-		}
-
+		const items = await collection.getItems(this.address);
 		return items;
+		// for(let item of items) {
+		// 	const rented = guild.isRentedNFT(config.CollectionNFTAddress, item).call();
+		// 	if(rented) {
+
+		// 	}
+		// 	// const uri = await collection.getItem(this.address, i);
+		// }
+
+		// return items;
 	}
 }
 
