@@ -47,34 +47,39 @@ function App() {
 
   // setTimeout(function() { //Start the timer
   useEffect(() => {
-    window.klaytn.on('accountsChanged', (accounts:any) => {
-      console.log('account changed', accounts);
-      setAccount(accounts[0]);
-    });
+    if(window.klaytn == undefined || window.klaytn._kaikas == undefined) {
+      console.log('install kaikas');
+    } else {
+      const enable = window.klaytn._kaikas.isEnabled();
+      console.log("isEnabled : ", enable);
+      if(enable) {
+        window.klaytn._kaikas.isApproved().then((approved: any) => {
+          console.log("isApproved : ", approved);
+        });
+        window.klaytn._kaikas.isUnlocked().then((unlocked: any) => {
+          console.log("isUnlocked: ", unlocked);
+          if(unlocked) {
+            window.klaytn.on('accountsChanged', (accounts:any) => {
+              console.log('account changed', accounts);
+              setAccount(accounts[0]);
+            });
 
-    window.klaytn.on('networkChanged', (network:any) => {
-      console.log('network changed', network);
-    });
+            window.klaytn.on('networkChanged', (network:any) => {
+              console.log('network changed', network);
+            });
 
-    window.caver.klay.getAccounts().then((accounts:any) => {
-      console.log(accounts);
-			setAccount(accounts[0]);
-		});
-
-    const enable = window.klaytn._kaikas.isEnabled();
-    console.log("isEnabled : ", enable);
-    if(enable) {
-      window.klaytn._kaikas.isApproved().then((approved: any) => {
-        console.log("isApproved : ", approved);
-      });
-      window.klaytn._kaikas.isUnlocked().then((unlocked: any) => {
-        console.log("isUnlocked: ", unlocked);
-        setIsEnabled(unlocked);
-      });
-      if(window.klaytn.networkVersion !== 1001) {
-          console.log("network version incorrect", window.klaytn.networkVersion);
-          // setCorrectNetwork(false);
-          setCorrectNetwork(true);
+            window.caver.klay.getAccounts().then((accounts:any) => {
+              console.log(accounts);
+              setAccount(accounts[0]);
+            });
+          }
+          setIsEnabled(unlocked);
+        });
+        if(window.klaytn.networkVersion !== 1001) {
+            console.log("network version incorrect", window.klaytn.networkVersion);
+            // setCorrectNetwork(false);
+            setCorrectNetwork(true);
+        }
       }
     }
   },[setAccount]);

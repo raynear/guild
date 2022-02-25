@@ -35,20 +35,22 @@ const GuildCard = (props:any) => {
   },[])
 
 	async function load() {
-    const guild = new Guild(props.address);
-		let result = await guild.getGuildName();//.then((result:any) => setName(result));
-		setName(result);
-    result = await guild.getGuildRevenue();//.then((result:any) => setGuildInfo({...guildInfo, GuildRevenue:result}));
-		setGuildRevenue(result);
-    result = await guild.getMemberRevenue();//.then((result:any) => setUserInfo({...userInfo, UserRevenue:result}));
-		setUserRevenue(result);
-    result = await collection.getBalance(props.address as string);//.then((result:any) => setGuildInfo({...guildInfo, ItemOwnedCnt:result}));
-		setItemOwnedCnt(result);
-    result = await membership.getBalance(account);//.then((result:any) => setUserInfo({...userInfo, UserMembershipNFTCnt:result}));
-		setUserMembershipNFTCnt(result);
-    result = await token.getBalance(props.address);//.then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
-    console.log("balance", result);
-		setBalanceInKlay(parseFloat(window.caver.utils.fromPeb(result, "KLAY")));
+    if(props.address !== "0x0000000000000000000000000000000000000001") {
+      const guild = new Guild(props.address);
+      let result = await guild.getGuildName();//.then((result:any) => setName(result));
+      setName(result);
+      result = await guild.getGuildRevenue();//.then((result:any) => setGuildInfo({...guildInfo, GuildRevenue:result}));
+      setGuildRevenue(result);
+      result = await guild.getMemberRevenue();//.then((result:any) => setUserInfo({...userInfo, UserRevenue:result}));
+      setUserRevenue(result);
+      result = await collection.getBalance(props.address as string);//.then((result:any) => setGuildInfo({...guildInfo, ItemOwnedCnt:result}));
+      setItemOwnedCnt(result);
+      result = await membership.getBalance(account);//.then((result:any) => setUserInfo({...userInfo, UserMembershipNFTCnt:result}));
+      setUserMembershipNFTCnt(result);
+      result = await token.getBalance(props.address);//.then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
+      console.log("balance", result);
+      setBalanceInKlay(parseFloat(window.caver.utils.fromPeb(result, "KLAY")));
+    }
 	}
 
   console.log(props);

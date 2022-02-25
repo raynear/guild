@@ -12,6 +12,7 @@ import { accountState } from '../recoil/atoms';
 import collection from '../util/collection';
 import membership from '../util/membership';
 import guild from '../util/guild';
+import {shorten} from '../util/util';
 
 const UserInfo = () => {
 	const [userRevenue, setUserRevenue] = useState(0);
@@ -43,17 +44,17 @@ const UserInfo = () => {
 		// 	// const myContract = new window.caver.klay.Contract(KIP17_ABI, config.MembershipNFTAddress);
 		// });
 
-		const myContract = new window.caver.klay.Contract(Guild_ABI, config.GuildContractAddress);
-		myContract.methods.guildName().call().then((result:any) => {
-			console.log(result);
-		});
+		// const myContract = new window.caver.klay.Contract(Guild_ABI, config.GuildContractAddress);
+		// myContract.methods.guildName().call().then((result:any) => {
+		// 	console.log(result);
+		// });
 	}, [])
 
 		console.log(account);
 
 	return (
 	<div style={{position:"absolute", zIndex:"4"}}>
-		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"155px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{account.substring(0, 6)+"..."+account.substring(38)}</Typography>
+		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"155px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{shorten(account, 10)}</Typography>
 		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"285px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{userMembershipNFTCnt}</Typography>
 		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"395px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{userRevenue}</Typography>
 		{id===undefined?<></>:<Link to={"/Guild/"+id+"/MyInventory"} style={{position:"absolute", left:"13px", top:"440px", width:"306px", height:"44px"}}><img alt="my inventory" style={{width:"306px", height:"44px"}} src={require('../image/my-inventory.png')}/></Link>}
