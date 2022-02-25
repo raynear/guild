@@ -5,10 +5,11 @@ import { Typography } from '@mui/material';
 
 import collection from '../util/collection';
 import guild from '../util/guild';
+import config from '../util/config';
 
 
 const DisposeNFT = () => {
-	const [value, setValue] = useState({contractAddress:"", nftId:"0", price:0});
+	const [value, setValue] = useState({contractAddress:config.CollectionNFTAddress, nftId:"0", price:0});
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:""});
 
 	const navigate = useNavigate();
@@ -34,11 +35,6 @@ const DisposeNFT = () => {
 		}
 	}
 
-	const handleAddress = (e:any) => {
-		setValue({...value, contractAddress:e.target.value});
-		bringNFTInfo(e.target.value, value.nftId);
-	}
-
 	const handleNFTId = (e:any) => {
 		console.log(e);
 		setValue({...value, nftId:e.target.value});
@@ -58,7 +54,7 @@ const DisposeNFT = () => {
       <img alt="a" src={require("../image/nft-info-table.png")} style={{position:"absolute", left:"15px", top:"210px", width:"603px", height:"256px"}}/>
 
 			<input style={{position:"absolute", left:"145px", top:"115px", width:"465px", height:"21px"}} color="secondary" onChange={handlePrice}/>
-			<input style={{position:"absolute", left:"145px", top:"150px", width:"465px", height:"21px"}} color="secondary" onChange={handleAddress}/>
+			<Typography style={{position:"absolute", left:"160px", top:"152px"}}>{config.CollectionNFTAddress}</Typography>
 			<input style={{position:"absolute", left:"145px", top:"183px", width:"465px", height:"21px"}} color="secondary" onChange={handleNFTId}/>
 
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"280px", top:"230px"}}>NAME</Typography>

@@ -21,6 +21,7 @@ import ChangeRentCondition from './pages/ChangeRentCondition';
 import MyInventory from './pages/MyInventory';
 import AboutAndRules from './pages/AboutAndRules';
 import RentNFT from './pages/RentNFT';
+import ReturnNFT from './pages/ReturnNFT';
 
 import Image from './image/BackGround-Cloud.png';
 import Cloud from './image/cloud.png';
@@ -184,6 +185,7 @@ function App() {
           <Route path="Discover" element={<Discover/>} />
           <Route path="RentNFTs" element={<RentNFTs />} />
           <Route path="RentNFT/:nftId" element={<RentNFT />} />
+          <Route path="ReturnNFT/:nftId" element={<ReturnNFT />} />
         </Routes>
         </div>
       </div>

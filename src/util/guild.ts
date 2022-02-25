@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { accountState } from '../recoil/atoms'
 
 import membership from './membership';
+import token from './token';
 import collection from './collection';
 
 export class Guild {
@@ -50,7 +51,7 @@ export class Guild {
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.setGuildName(name).send({from:account, gas:3000000});
+		await guild.methods.setGuildName(name).send({from:account, gas:3000000});
 	}
 
 	async proposeSupplyNFT(NFTContract:string, NFTId:number, price:number) {
@@ -59,7 +60,8 @@ export class Guild {
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
 
-		guild.methods.proposeSupplyNFT("Buy", NFTContract, NFTId, window.caver.utils.toPeb(price)).send({from:account, gas:3000000});
+		await collection.approve(account, this.address, NFTId);
+		await guild.methods.proposeSupplyNFT("Buy", NFTContract, NFTId, window.caver.utils.toPeb(price)).send({from:account, gas:3000000});
 	}
 
 	async rentNFT(NFTContract:string, nftId:number) {
@@ -67,15 +69,16 @@ export class Guild {
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.rentNFT(NFTContract, nftId).send({from:account, gas:3000000, value:window.caver.utils.toPeb(1)});
+		await token.approve(account, this.address, window.caver.utils.toPeb(2));
+		await guild.methods.rentNFT(NFTContract, nftId).send({from:account, gas:3000000});
 	}
 
-	async returnNFT(NFTContract:string, nftId:number) {
+	async returnNFT(nftId:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.disposeNFT(NFTContract, nftId).send({from:account, gas:3000000, value:window.caver.utils.toPeb(1)});
+		await guild.methods.returnNFT(config.CollectionNFTAddress, nftId).send({from:account, gas:3000000});
 	}
 
 	async proposeDisposeNFT(NFTContract:string, NFTId:number, price:number) {
@@ -83,7 +86,7 @@ export class Guild {
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.proposeDisposeNFT("Sell", NFTContract, NFTId, price).send({from:account, gas:3000000});
+		await guild.methods.proposeDisposeNFT("Sell", NFTContract, NFTId, price).send({from:account, gas:3000000});
 	}
 
 	async supplyNFT(proposalId:number) {
@@ -92,7 +95,7 @@ export class Guild {
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
 
-		guild.methods.supplyNFT(proposalId).send({from:account, gas:3000000});
+		await guild.methods.supplyNFT(proposalId).send({from:account, gas:3000000});
 	}
 
 	async disposeNFT(proposalId:number) {
@@ -100,7 +103,7 @@ export class Guild {
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.disposeNFT(proposalId).send({from:account, gas:3000000});
+		await guild.methods.disposeNFT(proposalId).send({from:account, gas:3000000});
 	}
 
 	async vote(id:number, votes:boolean) {
@@ -108,7 +111,7 @@ export class Guild {
 		// const account = useRecoilValue(accountState);
 		let account = await window.caver.klay.getAccounts();
 		account = account[0];
-		guild.methods.vote(id, votes).send({from:account, gas:3000000});
+		await guild.methods.vote(id, votes).send({from:account, gas:3000000});
 	}
 
 	async getProposals() {
@@ -141,7 +144,7 @@ export class Guild {
 
 	async isRentedNFT(NFTContract:string, NFTId:number) {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
-		return guild.methods.isRentedNFT(NFTContract, NFTId).call();
+		return await guild.methods.isRentedNFT(NFTContract, NFTId).call();
 	}
 
 	async getRentedNFTs(account:string) {
@@ -150,10 +153,14 @@ export class Guild {
 		const ret = [];
 		console.log(items);
 		for(let item of items) {
-			const res = await guild.methods.isRentedNFT(config.CollectionNFTAddress, item).call();
+			const res = await guild.methods.isRentedNFT(config.CollectionNFTAddress, parseInt(item)).call();
 			console.log(res);
 			if(res) {
-				ret.push(item);
+				const i = await collection.getItem(config.CollectionNFTAddress, parseInt(item));
+				console.log(i.replaceAll("'", '"'));
+				const i2 = JSON.parse(i.replaceAll("'", '"'));
+				i2['id'] = item;
+				ret.push(i2);
 			}
 		}
 

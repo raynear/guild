@@ -3,6 +3,9 @@ import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
+import { useRecoilValue } from 'recoil';
+import { accountState } from '../recoil/atoms';
+
 import Tabs from './Tabs';
 
 import config from '../util/config';
@@ -14,6 +17,7 @@ const ReturnNFT = () => {
 	const [NFTInfo, setNFTInfo] = useState({name:"", symbol:"", price:"0"});
 
 	const navigate = useNavigate();
+	const account = useRecoilValue(accountState);
 
 	const {nftId} = useParams();
 
@@ -30,9 +34,10 @@ const ReturnNFT = () => {
 		navigate(-1);
 	}
 
-	const returnNFT = () => {
+	const returnNFT = async () => {
 		const id = nftId===undefined?0:parseInt(nftId);
-		guild.returnNFT(config.CollectionNFTAddress, id);
+		await collection.approve(account, config.GuildContractAddress, id);
+		await guild.returnNFT(id);
 		navigate(-1);
 	}
 

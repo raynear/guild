@@ -23,8 +23,12 @@ export class Token {
 		return name;
 	}
 
+	async getBalance(account:string) {
+		const token = new window.caver.klay.Contract(KIP7_ABI, this.address);
+		return await token.methods.balanceOf(account).call();
+	}
 }
 
-const token = new Token(config.GuildContractAddress);
+const token = new Token(config.TokenContractAddress);
 
 export default token;

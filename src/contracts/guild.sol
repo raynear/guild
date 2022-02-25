@@ -98,7 +98,7 @@ contract Guild {
         // This function is made for a demonstration temporarily
         require(
             KIP17Token(membership).balanceOf(msg.sender) > 0,
-            "You dont have permission."
+            "You don't have permission."
         );
         require(proposals[_id].done == 0, "This proposal settled");
         if (_votes) {
@@ -114,7 +114,7 @@ contract Guild {
             KIP17Token(proposals[_id].NFTContract).ownerOf(
                 proposals[_id].NFTId
             ) == msg.sender,
-            "You dont have that NFT"
+            "You don't have that NFT"
         );
         KIP17Token(proposals[_id].NFTContract).transferFrom(
             msg.sender,
@@ -137,7 +137,8 @@ contract Guild {
 
     function disposeNFT(uint256 _id) public {
         require(proposals[_id].done == 1, "You cant handle this proposal");
-        KIP17Token(proposals[_id].NFTContract).transfer(
+        KIP17Token(proposals[_id].NFTContract).transferFrom(
+            address(this),
             msg.sender,
             proposals[_id].NFTId
         );
@@ -165,10 +166,20 @@ contract Guild {
     }
 
     function rentNFT(address _NFTContract, uint256 _NFTId) public payable {
-        KIP17Token(_NFTContract).approve(msg.sender, _NFTId);
         require(
-            KIP17Token(_NFTContract).getApproved(_NFTId) == msg.sender,
-            "Not approved"
+            KIP7Mintable(myToken).balanceOf(msg.sender) >= 2 ether,
+            "You don't have enough balance."
+        );
+        require(
+            KIP7Mintable(myToken).allowance(msg.sender, address(this)) >=
+                2 ether,
+            "You don't have enough allowance."
+        );
+        KIP7Mintable(myToken).transferFrom(msg.sender, address(this), 2 ether);
+        KIP17Token(_NFTContract).transferFrom(
+            address(this),
+            msg.sender,
+            _NFTId
         );
         rented[
             keccak256(
@@ -180,7 +191,24 @@ contract Guild {
         ] = true;
     }
 
-    function returnNFT(address _NFTContract, uint256 _NFTId) public {
+    function returnNFT(address _NFTContract, uint256 _NFTId) public payable {
+        require(
+            rented[
+                keccak256(
+                    abi.encodePacked(
+                        addressToString(_NFTContract),
+                        uintToString(_NFTId)
+                    )
+                )
+            ] == true,
+            "Not Rented NFT"
+        );
+        require(
+            KIP7Mintable(myToken).balanceOf(address(this)) >= 1 ether,
+            "Guild don't have enough balance."
+        );
+        KIP7Mintable(myToken).transfer(msg.sender, 1 ether);
+        guildRevenue += 1;
         KIP17Token(_NFTContract).transferFrom(
             msg.sender,
             address(this),

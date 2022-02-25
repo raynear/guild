@@ -11,6 +11,7 @@ import config from '../util/config';
 import guild from '../util/guild';
 import membership from '../util/membership';
 import collection from '../util/collection';
+import token from '../util/token';
 
 const Guild = (props:any) => {
 	const [name, setName] = useState('');
@@ -50,7 +51,7 @@ const Guild = (props:any) => {
 		setItemOwnedCnt(result);
     result = await membership.getBalance(account);//.then((result:any) => setUserInfo({...userInfo, UserMembershipNFTCnt:result}));
 		setUserMembershipNFTCnt(result);
-    result = await window.caver.klay.getBalance(id);//.then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
+    result = await token.getBalance(id as string);//.then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
 		setBalanceInKlay(parseFloat(window.caver.utils.fromPeb(result, "KLAY")));
 	}
 
@@ -78,7 +79,7 @@ const Guild = (props:any) => {
       <Typography variant="caption" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#20420c", position:"absolute", left:"510px", top:"52px"}}>{config.GuildContractAddress.substring(0, 6)+".."+config.GuildContractAddress.substring(37)}</Typography>
       <img alt="emblem" width="80" src="/assets/guild2.png" style={{position:"absolute", left:"40px", top:"110px", width:"60px", height:"60px"}} />
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"145px", top:"137px"}}>{itemOwnedCnt}</Typography>
-      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"255px", top:"137px"}}>{balanceInKlay.toFixed(4)}</Typography>
+      <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"255px", top:"137px"}}>{balanceInKlay.toFixed(2)}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"365px", top:"137px"}}>{guildRevenue}</Typography>
       <Typography variant="h6" style={{textShadow:"0px 0px #aaa, 0px 0px #fff, 0px 1px #777, 0px 0px #fff", color:"#fff", position:"absolute", left:"525px", top:"137px"}}>{userRevenue}</Typography>
 

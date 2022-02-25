@@ -6,6 +6,7 @@ import {Card, CardContent, Grid, Typography} from '@mui/material';
 import {Guild} from '../util/guild';
 import collection from '../util/collection';
 import membership from '../util/membership';
+import token from '../util/token';
 
 import {shorten} from '../util/util';
 import config from '../util/config';
@@ -47,7 +48,8 @@ const GuildCard = (props:any) => {
 		setItemOwnedCnt(result);
     result = await membership.getBalance(account);//.then((result:any) => setUserInfo({...userInfo, UserMembershipNFTCnt:result}));
 		setUserMembershipNFTCnt(result);
-    result = await window.caver.klay.getBalance(props.address);//.then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
+    result = await token.getBalance(props.address);//.then((result:any) => setGuildInfo({...guildInfo, BalanceInKlay:parseFloat(window.caver.utils.fromPeb(result, "KLAY"))}));
+    console.log("balance", result);
 		setBalanceInKlay(parseFloat(window.caver.utils.fromPeb(result, "KLAY")));
 	}
 
