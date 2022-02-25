@@ -75,8 +75,8 @@ const SupplyNFT = () => {
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px", zIndex:5}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px", zIndex:4}}/></div>
-      <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px", zIndex:5}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 
 		</div>
     );

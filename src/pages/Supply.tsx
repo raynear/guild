@@ -81,7 +81,13 @@ const Supply = () => {
 
 	const supplyNFT = async () => {
 		const pid = pollId===undefined?0:parseInt(pollId);
-		await guild.supplyNFT(pid);
+
+		if(await isOwner()) {
+			const done = await collection.approve(account, id as string, parseInt(NFTInfo.nftId));
+			if(done) {
+				await guild.supplyNFT(pid);
+			}
+		}
 		navigate(-1);
 	}
 
@@ -131,7 +137,7 @@ const Supply = () => {
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      {owner?<div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/supply-button.png")} style={{width:"262px", height:"39px"}}/></div>:<></>}
+      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/supply-button.png")} style={{width:"262px", height:"39px"}}/></div>
       <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 
 		</div>

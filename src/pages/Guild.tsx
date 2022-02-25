@@ -60,7 +60,7 @@ const Guild = (props:any) => {
 	}
 
 	async function dividend() {
-
+		// await guild.dividend();
 	}
 
   return (

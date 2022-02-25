@@ -18,6 +18,7 @@ const GuildList = () => {
 	}
 
 	// <Button onClick={aa}><img alt="logout" style={{width:"177px", height:"45.8px"}} src={require('../image/action-button-on.png')}/></Button>
+	console.log("GUILDS", guilds);
 
   return (
 		<div style={{position:"absolute", zIndex:"4", left:"330px", top:"100px", width:"640px", height:"500px"}}>

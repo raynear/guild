@@ -14,7 +14,7 @@ export class Collection {
 
 	async setCollectionName(account:string, name:string) {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, config.CollectionNFTAddress);
-		collection.methods.setGuildName(name).send({from:account, gas:3000000});
+		await collection.methods.setGuildName(name).send({from:account, gas:3000000});
 	}
 
 	async getBalance(account:string) {
@@ -69,12 +69,13 @@ export class Collection {
 
 	async approve(sender:string, address:string, nftId:number) {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		collection.methods.approve(address, nftId).send({from:sender, gas:3000000});
+		await collection.methods.approve(address, nftId).send({from:sender, gas:3000000});
+		return true;
 	}
 
 	async ownerOf(address:string, nftId:number) {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		return collection.methods.ownerOf(nftId).call();
+		return await collection.methods.ownerOf(nftId).call();
 	}
 }
 

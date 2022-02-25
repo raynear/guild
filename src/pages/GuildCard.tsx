@@ -15,8 +15,6 @@ import {useRecoilValue} from 'recoil';
 import {accountState} from '../recoil/atoms';
 
 const GuildCard = (props:any) => {
-  const [guildInfo, setGuildInfo] = useState({ItemOwnedCnt:0, BalanceInKlay:0, GuildRevenue:0, TotalMembershipNFTCnt:0});
-  const [userInfo, setUserInfo] = useState({UserRevenue:0, UserMembershipNFTCnt:0});
 
   const [name, setName] = useState('');
 	const [itemOwnedCnt, setItemOwnedCnt] = useState(0);
@@ -53,10 +51,7 @@ const GuildCard = (props:any) => {
 		setBalanceInKlay(parseFloat(window.caver.utils.fromPeb(result, "KLAY")));
 	}
 
-
-
-  console.log(guildInfo);
-  console.log(userInfo);
+  console.log(props);
 
   return (
     <Link to={"/Guild/"+props.address}>
