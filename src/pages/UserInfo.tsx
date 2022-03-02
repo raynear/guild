@@ -15,26 +15,26 @@ import guild from '../util/guild';
 import {shorten} from '../util/util';
 
 const UserInfo = () => {
-	const [userRevenue, setUserRevenue] = useState(0);
-	const [userMembershipNFTCnt, setUserMembershipNFTCnt] = useState(0);
+	const [userRevenue, setUserRevenue] = useState(456);
+	const [userMembershipNFTCnt, setUserMembershipNFTCnt] = useState(100);
 	const account = useRecoilValue(accountState);
 	const { id } = useParams();
 	// const [account , b] = useRecoilState(accountState);
 	// const account = '0x0000';
 
 	useEffect(() => {
-		console.log("aaaa", account);
-		collection.getBalance(account).then(result => {
-			console.log("collection balance", result);
-		});
+		// console.log("aaaa", account);
+		// collection.getBalance(account).then(result => {
+		// 	console.log("collection balance", result);
+		// });
 		membership.getBalance(account).then(result => {
-			console.log("membership balance", result);
+			// console.log("membership balance", result);
 			// setValue({memberRevenue:value.memberRevenue, membershipNFT:result});
 			setUserMembershipNFTCnt(result);
 		});
 
 		guild.getMemberRevenue().then(result => {
-			console.log("member revenue", result);
+			// console.log("member revenue", result);
 			// setValue({memberRevenue:result, membershipNFT:value.membershipNFT});
 			setUserRevenue(result);
 		});
@@ -46,15 +46,15 @@ const UserInfo = () => {
 
 		// const myContract = new window.caver.klay.Contract(Guild_ABI, config.GuildContractAddress);
 		// myContract.methods.guildName().call().then((result:any) => {
-		// 	console.log(result);
+		// 	// console.log(result);
 		// });
-	}, [])
+	}, [account])
 
-		console.log(account);
+		// console.log(account);
 
 	return (
 	<div style={{position:"absolute", zIndex:"4"}}>
-		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"155px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{shorten(account, 10)}</Typography>
+		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"155px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{shorten(account, 13)}</Typography>
 		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"285px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{userMembershipNFTCnt}</Typography>
 		<Typography variant="h5" style={{position:"absolute", left:"180px", top:"395px", transform:"translate(-50%, -50%)", textShadow:"-2px -2px #36727E, 2px -2px #36727E, -2px 2px #36727E, 2px 2px #36727E", color:"#FFF"}}>{userRevenue}</Typography>
 		{id===undefined?<></>:<Link to={"/Guild/"+id+"/MyInventory"} style={{position:"absolute", left:"13px", top:"440px", width:"306px", height:"44px"}}><img alt="my inventory" style={{width:"306px", height:"44px"}} src={require('../image/my-inventory.png')}/></Link>}

@@ -29,7 +29,7 @@ export class Guild {
 		const name = await guild.methods.guildName().call();
 		// const membershipAddress = await guild.methods.membership().call();
 
-		return [{name:name, address:config.GuildContractAddress}, {name:"Black Knight", address:"0x0000000000000000000000000000000000000001"}];
+		return [{name:name, address:config.GuildContractAddress}, {name:"Black Knight", address:"0x0000000000000000000000000000000000000000"}];
 	}
 
 	async getGuildRevenue() {
@@ -151,13 +151,13 @@ export class Guild {
 		const guild = new window.caver.klay.Contract(Guild_ABI, this.address);
 		const items = await collection.getItems(account);
 		const ret = [];
-		console.log(items);
+		// console.log(items);
 		for(let item of items) {
 			const res = await guild.methods.isRentedNFT(config.CollectionNFTAddress, parseInt(item)).call();
-			console.log(res);
+			// console.log(res);
 			if(res) {
 				const i = await collection.getItem(config.CollectionNFTAddress, parseInt(item));
-				console.log(i.replaceAll("'", '"'));
+				// console.log(i.replaceAll("'", '"'));
 				const i2 = JSON.parse(i.replaceAll("'", '"'));
 				i2['id'] = item;
 				ret.push(i2);

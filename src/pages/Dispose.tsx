@@ -30,7 +30,7 @@ const Dispose = () => {
 
 	function parseProposals(proposals:string) {
 		const tokens = proposals.split(';');
-		console.log(tokens, tokens.length);
+		// console.log(tokens, tokens.length);
 		for(let i=0 ; i<tokens.length-1 ; i+=7) {
 			let option = "";
 			switch(tokens[i+5]) {
@@ -91,6 +91,8 @@ const Dispose = () => {
 			collection.getItem(contractAddress, parseInt(nftId)).then((data) => {
 				const nftInfo = JSON.parse(data.replaceAll("'", '"'));
 				setNFTInfo(nftInfo);
+			}).catch(() => {
+				setNFTInfo(dummy);
 			});
 		}
 	}

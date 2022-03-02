@@ -29,7 +29,7 @@ const ChangeRentCondition = () => {
 	function bringNFTInfo() {
 		if(value.contractAddress !== "") {
 			collection.getItem(value.contractAddress, value.nftId).then((data) => {
-				console.log(data);
+				// console.log(data);
 			});
 		}
 	}

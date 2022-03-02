@@ -17,11 +17,11 @@ const PollList = () => {
 
 	useEffect(() => {
 		guild.getProposals().then((res:any) => {
-			console.log("test", res);
+			// console.log("test", res);
 			setProposals(parseProposals(res));
 		});
 		// const parsedProposals = parseProposals("16afc96a3d588894e6e01719d2e266e836e389024ef666094304ccf46e3074a3;0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;0;true;false;27d550eafb23b95ed6067beca0d5bcf47da6cd255a1b387f96eadf156b793f21;0x70997970C51812dc3A010C7d01b50e0d17dc79C8;1;false;true");
-		// console.log(parsedProposals);
+		// // console.log(parsedProposals);
 		// setProposals(parsedProposals);
 	},[]);
 
@@ -30,7 +30,7 @@ const PollList = () => {
 	function parseProposals(proposals:string) {
 		const ret = [];
 		const tokens = proposals.split(';');
-		console.log(tokens, tokens.length);
+		// console.log(tokens, tokens.length);
 		for(let i=0 ; i<tokens.length-1 ; i+=7) {
 			let option = "";
 			switch(tokens[i+5]) {
@@ -73,7 +73,7 @@ const PollList = () => {
 			ret.push(proposal);
 		}
 
-		console.log("asdf", ret);
+		// console.log("asdf", ret);
 		return ret;
 	}
 

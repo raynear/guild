@@ -18,10 +18,10 @@ export class Collection {
 	}
 
 	async getBalance(account:string) {
-		console.log("collection:getBalance");
+		// console.log("collection:getBalance");
 		const collection = new window.caver.klay.Contract(KIP17_ABI, this.address);
 		const balance = await collection.methods.balanceOf(account).call();
-		console.log("balance", balance);
+		// console.log("balance", balance);
 
 		return balance;
 	}
@@ -34,9 +34,9 @@ export class Collection {
 		const ret = [];
 		for(let i=0; i<balance; i++) {
 			const nft = await collection.methods.tokenOfOwnerByIndex(account, i).call();
-			console.log("nft", nft);
+			// console.log("nft", nft);
 			const uri = await collection.methods.tokenURI(nft).call();
-			console.log("uri", uri);
+			// console.log("uri", uri);
 			ret.push(nft);
 		}
 
@@ -54,10 +54,10 @@ export class Collection {
 		const collection = new window.caver.klay.Contract(KIP17_ABI, address);
 		// const nftId = await collection.methods.tokenOfOwnerByIndex(address, id).call();
 		// const exist = await this.hasMethod(address, 'tokenURI(uint256)');
-		// console.log(exist);
+		// // console.log(exist);
 		// if(exist) {
 			const nftInfo = await collection.methods.tokenURI(id).call();
-			console.log("nftInfo", nftInfo);
+			// console.log("nftInfo", nftInfo);
 			return nftInfo;
 		// }
 		// else {

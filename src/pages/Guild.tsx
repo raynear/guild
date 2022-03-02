@@ -29,8 +29,8 @@ const Guild = (props:any) => {
 	const { id } = useParams();
 
   useEffect(() => {
-		console.log("raynear", account);
-		console.log("props", id);
+		// console.log("raynear", account);
+		// console.log("props", id);
 		load();
 		// guild.getGuildName().then((result:any) => setName(result));
     // guild.getGuildRevenue().then((result:any) => setGuildInfo({...guildInfo, GuildRevenue:result}));

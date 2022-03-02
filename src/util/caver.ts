@@ -27,7 +27,7 @@ if(typeof window.klaytn !== undefined) {
         });
 
         // caver.wallet.signMessage(accounts[0], 'test', caver.wallet.keyring.role.roleTransactionKey).then((signature:any) => {
-        // 	console.log(signature);
+        // 	// console.log(signature);
         // });
       });
     } catch (error) {

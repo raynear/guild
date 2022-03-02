@@ -23,7 +23,7 @@ const SupplyNFT = () => {
 	}
 
 	const supplyNFT = async () => {
-		console.log('aaaaaaaaaaaaaaaaa');
+		// console.log('aaaaaaaaaaaaaaaaa');
 		guild.proposeSupplyNFT(value.contractAddress, parseInt(value.nftId), value.price);
 		navigate(-1);
 	}
@@ -34,6 +34,8 @@ const SupplyNFT = () => {
 			collection.getItem(contractAddress, parseInt(nftId)).then((data) => {
 				const nftInfo = JSON.parse(data.replaceAll("'", '"'));
 				setNFTInfo(nftInfo);
+			}).catch(() => {
+				setNFTInfo(dummy);
 			});
 		}
 	}
@@ -75,8 +77,8 @@ const SupplyNFT = () => {
 
       <img alt="a" src={require("../image/no-images.png")} style={{position:"absolute", left:"85px", top:"270px", width:"124px", height:"160px", zIndex:4}}/>
 
-      <div onClick={supplyNFT} style={{position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
-      <div onClick={goBack} style={{position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={supplyNFT} style={{pointerEvents:"auto", position:"absolute", left:"50px", top:"490px", width:"262px", height:"39px"}}><img alt="b" src={require("../image/create-button.png")} style={{width:"262px", height:"39px"}}/></div>
+      <div onClick={goBack} style={{pointerEvents:"auto", position:"absolute", left:"330px", top:"490px", width:"262px", height:"39px"}}><img alt="c" src={require("../image/cancel-button.png")} style={{width:"262px", height:"39px"}}/></div>
 
 		</div>
     );

@@ -14,7 +14,7 @@ const PollCard = (props:any) => {
     setName(e.target.value);
   };
 
-  console.log(props);
+  // console.log(props);
 
   switch(props.done) {
     case "in progress":

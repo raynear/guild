@@ -10,26 +10,26 @@ describe("Guild", function () {
     const MyToken = await ethers.getContractFactory("MyToken");
     const myToken = await MyToken.deploy();
     await myToken.deployed();
-    console.log("MyToken deployed to:", myToken.address);
+    // console.log("MyToken deployed to:", myToken.address);
 
     // Membership NFT 배포
     const Membership = await ethers.getContractFactory("Membership");
     const membership = await Membership.deploy("Membership", "mbs");
     await membership.deployed();
-    console.log("Membership deployed to:", membership.address);
+    // console.log("Membership deployed to:", membership.address);
 
     // Collection NFT 배포
     const Collection = await ethers.getContractFactory("Collection");
     const collection = await Collection.deploy("Collection","clt")
     await collection.deployed();
-    console.log("Collection deployed to:", collection.address);
+    // console.log("Collection deployed to:", collection.address);
     
     // Guild NFT 배포
     var guildName = "First";
     const Guild = await ethers.getContractFactory("Guild");
     const guild = await Guild.deploy(guildName, myToken.address, membership.address, collection.address);
     await guild.deployed();
-    console.log("Guild deployed to:", guild.address);
+    // console.log("Guild deployed to:", guild.address);
 
     // Membership NFT 민팅
     await membership.mintMembership(10);
@@ -48,12 +48,12 @@ describe("Guild", function () {
     // Supply 투표 제안
     await guild.proposeSupplyNFT("Supply NFT 0", collection.address, 0, 1);
     var proposals = await guild.getProposals();
-    console.log("proposals: ", proposals);
+    // console.log("proposals: ", proposals);
 
     // Supply 투표
     await guild.vote(0, true);
     var proposal = await guild.getProposal(0);
-    console.log("proposal: ", proposal);
+    // console.log("proposal: ", proposal);
     
     // Supply
     await collection.approve(guild.address, 0);
@@ -62,19 +62,19 @@ describe("Guild", function () {
     // Supply 후 NFT, Token 확인
     expect(await collection.ownerOf(0)).to.equal(guild.address);
     let balance = await myToken.balanceOf(guild.address);
-    console.log("Balance Of guild:", balance);
+    // console.log("Balance Of guild:", balance);
     balance = await myToken.balanceOf(owner.address);
-    console.log("Balance Of Owner:", balance);
+    // console.log("Balance Of Owner:", balance);
 
     // Dispose 투표 제안
     await guild.proposeDisposeNFT("Dispose NFT 1", collection.address, 0, 1);
     proposals = await guild.getProposals();
-    console.log("proposals: ", proposals);
+    // console.log("proposals: ", proposals);
 
     // Dispose 투표
     await guild.vote(1, true);
     proposal = await guild.getProposal(1);
-    console.log("proposal: ", proposal);
+    // console.log("proposal: ", proposal);
     
     // Dispose
     await myToken.approve(guild.address, 1);

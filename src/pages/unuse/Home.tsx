@@ -6,7 +6,7 @@ const Home = () => {
 
 	useEffect( () => {
 		window.caver.klay.getAccounts().then((accounts:any) => {
-			console.log(accounts);
+			// console.log(accounts);
 			setAccount(accounts[0]);
 		});
 
@@ -22,10 +22,10 @@ const Home = () => {
 	// 				klaytn.enable().then((accounts:any) => {
 	// 					setAccount(accounts[0]);
 
-	// 					console.log(cav.account);
+	// 					// console.log(cav.account);
 
 	// 					// caver.wallet.signMessage(accounts[0], 'test', caver.wallet.keyring.role.roleTransactionKey).then((signature:any) => {
-	// 					// 	console.log(signature);
+	// 					// 	// console.log(signature);
 	// 					// });
 	// 				})
 	// 			  } catch (error) {

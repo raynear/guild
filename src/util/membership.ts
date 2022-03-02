@@ -14,9 +14,9 @@ export class Membership{
 
 	async getBalance(account:string) {
 		const membership = new window.caver.klay.Contract(KIP17_ABI, this.address);
-		console.log("raynear");
+		// console.log("raynear");
 		const balance = await membership.methods.balanceOf(account).call();
-		console.log(balance);
+		// console.log(balance);
 
 		return balance;
 	}

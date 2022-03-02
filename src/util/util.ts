@@ -25,7 +25,7 @@ function useInterval(callback: () => void, delay: number | null) {
 
 export function shorten(str:string, len:number) {
   if(str.length > len) {
-    return str.substring(0, len/2+1) + "..." + str.substring(len/2+1, len);
+    return str.substring(0, len/2+1) + ".." + str.substring(str.length-len/2+1, str.length);
   }
   return str;
 }

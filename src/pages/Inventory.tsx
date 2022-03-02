@@ -25,11 +25,11 @@ const Inventory = () => {
 	useEffect(() => {
 		const address = id===undefined?'':id;
 		collection.getItems(address).then(async (data) => {
-			console.log(data);
+			// console.log(data);
 			const is = [];
 			for(let i of data) {
 				const item = await collection.getItem(config.CollectionNFTAddress, parseInt(i));
-				console.log(item.replaceAll("'", '"'));
+				// console.log(item.replaceAll("'", '"'));
 				const i2 = JSON.parse(item.replaceAll("'", '"'));
 				i2['id'] = i;
 				is.push(i2);
